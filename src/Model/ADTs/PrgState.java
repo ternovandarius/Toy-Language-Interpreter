@@ -1,18 +1,23 @@
 package Model.ADTs;
 
+import java.io.BufferedReader;
+
 import Model.Statements.IStmt;
+import Model.Values.StringValue;
 import Model.Values.Value;
 
 public class PrgState {
 	MyIStack<IStmt> exeStack;
 	MyIDictionary<String, Value> symTable;
 	MyIList<Value> out;
+	MyITable<StringValue, BufferedReader> FileTable;
 	//IStmt originalProgram; to be implemented
 	
-	public PrgState(MyIStack<IStmt> stk, MyIDictionary<String, Value> symtbl, MyIList<Value> ot){
+	public PrgState(MyIStack<IStmt> stk, MyIDictionary<String, Value> symtbl, MyIList<Value> ot, MyITable<StringValue, BufferedReader> FilTbl){
 		exeStack = stk;
 		symTable = symtbl;
 		out = ot;
+		FileTable=FilTbl;
 		//originalProgram=deepCopy(prg);
 		//stk.push(prg);
 	}
@@ -47,15 +52,27 @@ public class PrgState {
 		return out;
 	}
 	
+	public void setFileTable(MyITable<StringValue, BufferedReader> newTable)
+	{
+		FileTable=newTable;
+	}
+	
+	public MyITable<StringValue, BufferedReader> getFileTable()
+	{
+		return FileTable;
+	}
+	
 	public String toString()
 	{
-		String exeStackMsg="ExeStack= {";
-		exeStackMsg+=exeStack.toString()+"}";
-		String symTableMsg="SymTable= {";
-		symTableMsg+=symTable.toString()+"}";
-		String outMsg="Out= {";
-		outMsg+=out.toString()+"}";
-		String finalMsg=exeStackMsg+"\n"+symTableMsg+"\n"+outMsg+"\n";
+		String exeStackMsg="ExeStack:\n";
+		exeStackMsg+=exeStack.toString();
+		String symTableMsg="SymTable:\n";
+		symTableMsg+=symTable.toString();
+		String outMsg="Out:\n";
+		outMsg+=out.toString();
+		String fileTableMsg ="FileTable:\n";
+		fileTableMsg+=FileTable.toString();
+		String finalMsg=exeStackMsg+"\n"+symTableMsg+"\n"+outMsg+"\n"+fileTableMsg+"\n";
 		return finalMsg;
 	}
 }

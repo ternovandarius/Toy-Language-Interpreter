@@ -1,9 +1,10 @@
 package Model.ADTs;
+
 import java.util.HashMap;
 
-public class MyDictionary<T, V> implements MyIDictionary<T, V> {
+public class FileTable<T, V> implements MyITable<T, V>{
 
-	HashMap<T, V> dict = new HashMap<T, V>();
+HashMap<T, V> dict = new HashMap<T, V>();
 	
 	@Override
 	public void clear() {
@@ -13,13 +14,7 @@ public class MyDictionary<T, V> implements MyIDictionary<T, V> {
 	
 	public String toString()
 	{
-		//return dict.toString();
-		String msg="";
-		for(T i: dict.keySet())
-		{
-			msg+=i.toString()+"-->"+dict.get(i).toString()+"\n";
-		}
-		return msg;
+		return dict.toString();
 	}
 
 	@Override

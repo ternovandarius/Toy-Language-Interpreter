@@ -15,7 +15,7 @@ public class MyStack<T> implements MyIStack<T> {
 		{
 			msg+=iterator.previous().toString();
 			if(iterator.hasPrevious())
-				msg+=" | ";
+				msg+="\n";
 		}
 		return msg;
 	}

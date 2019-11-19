@@ -15,7 +15,13 @@ public class MyList<T> implements MyIList<T> {
 	
 	public String toString()
 	{
-		return list.toString();
+		//return list.toString();
+		String msg="";
+		for (T i: list)
+		{
+			msg+=i.toString()+"\n";
+		}
+		return msg;
 	}
 
 	@Override

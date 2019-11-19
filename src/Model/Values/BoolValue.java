@@ -6,6 +6,19 @@ import Model.Types.Type;
 public class BoolValue implements Value{
 	boolean val;
 	
+	public boolean equals(Object another) {
+		if (another instanceof BoolValue)
+		{
+			if(val==((BoolValue) another).getValue())
+				return true;
+			else
+				return false;
+		}
+		else {
+			return false;
+		}
+	}
+	
 	public BoolValue(boolean val) {
 		this.val=val;
 	}

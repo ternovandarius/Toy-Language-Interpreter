@@ -21,17 +21,25 @@ public class Controller implements MyIController{
 		if(stk.isEmpty())
 			throw new MyException("prgstate stack is empty");
 		IStmt crtStmt = stk.pop();
+		//repo.logPrgStateExec();
 		return crtStmt.execute(state);
 	}
 
 	@Override
 	public void allStep() {
 		PrgState prg = repo.getCrtPrg();
+		try {
+			repo.logPrgStateExec();
+		} catch (MyException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		System.out.println(prg.toString());
 		while(!prg.getStack().isEmpty())
 		{
 			try {
 				oneStep(prg);
+				repo.logPrgStateExec();
 			} catch (MyException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

@@ -3,7 +3,9 @@ package Model.Statements;
 import Exceptions.MyException;
 import Model.ADTs.MyIDictionary;
 import Model.ADTs.PrgState;
+import Model.Types.BoolType;
 import Model.Types.IntType;
+import Model.Types.StringType;
 import Model.Types.Type;
 import Model.Values.BoolValue;
 import Model.Values.IntValue;
@@ -34,14 +36,17 @@ public class VarDeclStmt implements IStmt{
 		}
 		else {
 			IntType intTest = new IntType();
+			BoolType boolTest = new BoolType();
+			StringType stringTest = new StringType();
 			if (typ.equals(intTest))
 			{
-				IntValue intVal = new IntValue(0);
-				symTbl.put(name, intVal);
+				symTbl.put(name, intTest.defaultValue());
+			}
+			else if(typ.equals(boolTest)){
+				symTbl.put(name,  boolTest.defaultValue());
 			}
 			else {
-				BoolValue boolVal = new BoolValue(false);
-				symTbl.put(name,  boolVal);
+				symTbl.put(name,  stringTest.defaultValue());
 			}
 			state.setTable(symTbl);
 		}
