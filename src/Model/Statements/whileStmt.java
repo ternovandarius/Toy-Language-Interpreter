@@ -7,27 +7,24 @@ import Model.ADTs.MyIStack;
 import Model.ADTs.PrgState;
 import Model.Expressions.Exp;
 import Model.Types.BoolType;
-import Model.Types.Type;
 import Model.Values.BoolValue;
 import Model.Values.Value;
 
-public class IfStmt implements IStmt{
+public class whileStmt implements IStmt{
 
 	Exp exp;
-	IStmt thenS;
-	IStmt elseS;
+	IStmt stmt;
 	
-	public IfStmt(Exp e, IStmt t, IStmt el)
+	public whileStmt(Exp e, IStmt st)
 	{
-		this.exp=e;
-		this.thenS=t;
-		this.elseS=el;
+		exp=e;
+		stmt=st;
 	}
 	
 	@Override
 	public String toString()
 	{
-		return "(IF("+exp.toString()+")THEN("+thenS.toString()+")ELSE("+elseS.toString()+"))";
+		return "while ("+exp.toString()+") "+stmt.toString();
 	}
 	
 	@Override
@@ -37,20 +34,21 @@ public class IfStmt implements IStmt{
 		MyIDictionary<String, Value> symTbl = state.getTable();
 		
 		Value val = exp.eval(symTbl, heap);
-		Type typ = val.getType();
-		BoolType boolTest = new BoolType();
-		if(!typ.equals(boolTest))
-			throw new MyException("Conditional expression is not a boolean!");
+		if(!val.getType().equals(new BoolType()))
+		{
+			throw new MyException("Invalid type!");
+		}
 		else
 		{
-			BoolValue newVal = (BoolValue) exp.eval(symTbl, heap);
-			if(newVal.getValue()) {
-				stk.push(thenS);
+			BoolValue newVal = (BoolValue) val;
+			if(newVal.getValue())
+			{
+				whileStmt newWhile = new whileStmt(exp, stmt);
+				stk.push(newWhile);
+				stk.push(stmt);
 			}
-			else
-				stk.push(elseS);
-			state.setStack(stk);
 		}
+		state.setStack(stk);
 		return state;
 	}
 

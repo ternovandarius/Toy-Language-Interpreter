@@ -2,6 +2,7 @@ package Model.Statements;
 
 import Exceptions.MyException;
 import Model.ADTs.MyIDictionary;
+import Model.ADTs.MyIHeap;
 import Model.ADTs.PrgState;
 import Model.Expressions.Exp;
 import Model.Types.Type;
@@ -27,10 +28,11 @@ public class AssignStmt implements IStmt{
 	@Override
 	public PrgState execute(PrgState state) throws MyException{
 		MyIDictionary<String, Value> symTbl = state.getTable();
+		MyIHeap<Integer, Value> heap = state.getHeap();
 		
 		if(symTbl.containsKey(id))
 		{
-			Value val = exp.eval(symTbl);
+			Value val = exp.eval(symTbl, heap);
 			Type typId=(symTbl.lookup(id)).getType();
 			if ((val.getType()).equals(typId)){
 				symTbl.update(id, val);

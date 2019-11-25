@@ -2,6 +2,7 @@ package Model.Expressions;
 
 import Exceptions.MyException;
 import Model.ADTs.MyIDictionary;
+import Model.ADTs.MyIHeap;
 import Model.Values.Value;
 
 public class VarExp implements Exp{
@@ -17,7 +18,7 @@ public class VarExp implements Exp{
 	}
 	
 	@Override
-	public Value eval(MyIDictionary<String, Value> tbl) throws MyException {
+	public Value eval(MyIDictionary<String,Value> tbl, MyIHeap<Integer,Value> hp) throws MyException {
 		return tbl.lookup(id);
 	}
 

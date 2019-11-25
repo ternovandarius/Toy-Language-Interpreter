@@ -1,5 +1,9 @@
 package Model.ADTs;
 
+import java.util.HashMap;
+
+import Model.Values.Value;
+
 public interface MyIDictionary<T, V> {
 
 	void clear();
@@ -12,5 +16,6 @@ public interface MyIDictionary<T, V> {
 	int size();
 	V lookup(T id);
 	void update(T id, V val);
+	HashMap<T, V> getContent();
 
 }

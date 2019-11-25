@@ -1,8 +1,14 @@
 package Model.ADTs;
 
 import java.io.BufferedReader;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import Model.Statements.IStmt;
+import Model.Values.RefValue;
 import Model.Values.StringValue;
 import Model.Values.Value;
 
@@ -11,13 +17,15 @@ public class PrgState {
 	MyIDictionary<String, Value> symTable;
 	MyIList<Value> out;
 	MyITable<StringValue, BufferedReader> FileTable;
+	MyIHeap<Integer, Value> heap;
 	//IStmt originalProgram; to be implemented
 	
-	public PrgState(MyIStack<IStmt> stk, MyIDictionary<String, Value> symtbl, MyIList<Value> ot, MyITable<StringValue, BufferedReader> FilTbl){
+	public PrgState(MyIStack<IStmt> stk, MyIDictionary<String, Value> symtbl, MyIList<Value> ot, MyITable<StringValue, BufferedReader> FilTbl, MyIHeap<Integer, Value> heap){
 		exeStack = stk;
 		symTable = symtbl;
 		out = ot;
 		FileTable=FilTbl;
+		this.heap=heap;
 		//originalProgram=deepCopy(prg);
 		//stk.push(prg);
 	}
@@ -62,6 +70,16 @@ public class PrgState {
 		return FileTable;
 	}
 	
+	public void setHeap(MyIHeap<Integer, Value> heap)
+	{
+		this.heap=heap;
+	}
+	
+	public MyIHeap<Integer, Value> getHeap()
+	{
+		return this.heap;
+	}
+	
 	public String toString()
 	{
 		String exeStackMsg="ExeStack:\n";
@@ -72,7 +90,27 @@ public class PrgState {
 		outMsg+=out.toString();
 		String fileTableMsg ="FileTable:\n";
 		fileTableMsg+=FileTable.toString();
-		String finalMsg=exeStackMsg+"\n"+symTableMsg+"\n"+outMsg+"\n"+fileTableMsg+"\n";
+		String heapMsg ="Heap:\n";
+		heapMsg+=heap.toString();
+		String finalMsg=exeStackMsg+"\n"+symTableMsg+"\n"+outMsg+"\n"+fileTableMsg+"\n"+heapMsg;
 		return finalMsg;
 	}
+	
+	public Map<Integer, Value> unsafeGarbageCollector(List<Integer> symTableAddr, HashMap<Integer,Value>
+	heap){
+	return heap.entrySet()
+			.stream()
+			.filter(e->symTableAddr.contains(e.getKey())  && (!(e.getValue() instanceof RefValue) || symTableAddr.contains((((RefValue) e.getValue()).getAddr()))))   
+			.collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+	
+	}
+	
+	public List<Integer> getAddrFromSymTable(Collection<Value> symTableValues){
+	 return symTableValues.stream()
+	 .filter(v-> v instanceof RefValue )
+	 .map(v-> {RefValue v1 = (RefValue)v; return v1.getAddr();})
+	 .collect(Collectors.toList());
+	}
+
+	
 }

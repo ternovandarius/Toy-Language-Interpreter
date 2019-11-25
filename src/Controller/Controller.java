@@ -40,6 +40,10 @@ public class Controller implements MyIController{
 			try {
 				oneStep(prg);
 				repo.logPrgStateExec();
+				prg.getHeap().setContent(prg.unsafeGarbageCollector(
+						 prg.getAddrFromSymTable(( prg.getTable()).getContent().values()),
+						 prg.getHeap().getContent()));
+				repo.logPrgStateExec();
 			} catch (MyException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

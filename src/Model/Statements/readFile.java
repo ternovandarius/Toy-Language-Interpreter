@@ -5,6 +5,7 @@ import java.io.IOException;
 
 import Exceptions.MyException;
 import Model.ADTs.MyIDictionary;
+import Model.ADTs.MyIHeap;
 import Model.ADTs.MyITable;
 import Model.ADTs.PrgState;
 import Model.Expressions.Exp;
@@ -35,6 +36,7 @@ public class readFile implements IStmt{
 	public PrgState execute(PrgState state) throws MyException {
 		MyITable<StringValue, BufferedReader> FileTable =state.getFileTable();
 		MyIDictionary<String, Value> symTable = state.getTable();
+		MyIHeap<Integer, Value> heap = state.getHeap();
 		
 		int resValue;
 		
@@ -52,8 +54,7 @@ public class readFile implements IStmt{
 			}
 			else
 			{
-				IntValue newVal = (IntValue)val;
-				Value val2=exp.eval(symTable);
+				Value val2=exp.eval(symTable, heap);
 				StringType strt = new StringType();
 				if(!val2.getType().equals(strt))
 				{

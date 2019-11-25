@@ -1,25 +1,38 @@
 package Model.ADTs;
+
 import java.util.HashMap;
+import java.util.Map;
 
-public class MyDictionary<T, V> implements MyIDictionary<T, V> {
+import Exceptions.MyException;
 
-	HashMap<T, V> dict = new HashMap<T, V>();
-	
+public class MyHeap<T,V> implements MyIHeap<T,V>{
+HashMap<Integer, V> dict = new HashMap<Integer, V>();
+static int addr=1;
+
 	@Override
 	public void clear() {
 		// TODO Auto-generated method stub
 		dict.clear();
 	}
 	
+	public void setContent(Map<Integer,V> m)
+	{
+		dict=(HashMap<Integer, V>) m;
+	}
+	
+	public HashMap<Integer, V> getContent()
+	{
+		return dict;
+	}
+	
+	public int getLastPos()
+	{
+		return addr-1;
+	}
+	
 	public String toString()
 	{
-		//return dict.toString();
-		String msg="";
-		for(T i: dict.keySet())
-		{
-			msg+=i.toString()+"-->"+dict.get(i).toString()+"\n";
-		}
-		return msg;
+		return dict.toString();
 	}
 
 	@Override
@@ -47,9 +60,11 @@ public class MyDictionary<T, V> implements MyIDictionary<T, V> {
 	}
 
 	@Override
-	public V put(T key, V value) {
+	public V put(V value) {
 		// TODO Auto-generated method stub
-		return dict.put(key, value);
+		Integer a= Integer.valueOf(addr);
+		addr+=1;
+		return dict.put(a, value);
 	}
 
 	@Override
@@ -69,14 +84,12 @@ public class MyDictionary<T, V> implements MyIDictionary<T, V> {
 		return this.get(id);
 	}
 	
-	public void update(T id, V val)
+	public void update(T id, V val) throws MyException
 	{
-		this.dict.replace(id, val);
-	}
-
-	@Override
-	public HashMap<T, V> getContent() {
-		return dict;
+		if(id instanceof Integer)
+			this.dict.replace((Integer)id, val);
+		else
+			throw new MyException("Invalid key!");
 	}
 
 }

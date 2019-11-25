@@ -6,6 +6,7 @@ import java.io.FileReader;
 
 import Exceptions.MyException;
 import Model.ADTs.MyIDictionary;
+import Model.ADTs.MyIHeap;
 import Model.ADTs.MyITable;
 import Model.ADTs.PrgState;
 import Model.Expressions.Exp;
@@ -32,8 +33,9 @@ public class openRFile implements IStmt{
 	public PrgState execute(PrgState state) throws MyException {
 		MyITable<StringValue, BufferedReader> FileTable =state.getFileTable();
 		MyIDictionary<String, Value> symTable = state.getTable();
+		MyIHeap<Integer, Value> heap = state.getHeap();
 		
-		Value val = exp.eval(symTable);
+		Value val = exp.eval(symTable, heap);
 		StringType strt = new StringType();
 		if(!val.getType().equals(strt))
 		{
