@@ -41,7 +41,7 @@ public class Controller implements MyIController{
 				oneStep(prg);
 				repo.logPrgStateExec();
 				prg.getHeap().setContent(prg.unsafeGarbageCollector(
-						 prg.getAddrFromSymTable(( prg.getTable()).getContent().values()),
+						 prg.getAddrFromSymTable(prg.getTable().getContent().values(), prg.getHeap().getContent().values()),
 						 prg.getHeap().getContent()));
 				repo.logPrgStateExec();
 			} catch (MyException e) {

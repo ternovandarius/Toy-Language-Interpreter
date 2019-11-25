@@ -108,7 +108,7 @@ class Interpreter {
 		MyIHeap<Integer, Value> heap6 = new MyHeap<Integer, Value>();
 		IStmt wst1 = new VarDeclStmt("i", new IntType());
 		IStmt wst2 = new AssignStmt("i", new ValueExp(new IntValue(0)));
-		IStmt wst3 = new whileStmt(new RelExp(new VarExp("i"), new ValueExp(new IntValue(3)), "<="), new CompStmt(new PrintStmt(new VarExp("i")), new AssignStmt("i", new ValueExp(new IntValue(4)))));
+		IStmt wst3 = new whileStmt(new RelExp(new VarExp("i"), new ValueExp(new IntValue(3)), "<="), new CompStmt(new PrintStmt(new VarExp("i")), new AssignStmt("i", new ArithExp('+', new VarExp("i"), new ValueExp(new IntValue(1))))));
 		
 		stk6.push(wst3);
 		stk6.push(wst2);
@@ -132,7 +132,7 @@ class Interpreter {
 		IStmt hst8 = new newStmt(new StringValue("v"), new ValueExp(new IntValue(30)));
 		IStmt hst9 = new PrintStmt(new readHeap(new readHeap(new VarExp("a"))));
 		
-		//stk7.push(hst9);
+		stk7.push(hst9);
 		stk7.push(hst8);
 		stk7.push(hst7);
 		stk7.push(hst6);

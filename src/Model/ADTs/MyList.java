@@ -17,9 +17,10 @@ public class MyList<T> implements MyIList<T> {
 	{
 		//return list.toString();
 		String msg="";
-		for (T i: list)
+		int i=list.size()-1;
+		for(i=list.size()-1; i>=0; i--)
 		{
-			msg+=i.toString()+"\n";
+			msg+=list.get(i).toString()+"\n";
 		}
 		return msg;
 	}

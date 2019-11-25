@@ -100,16 +100,24 @@ public class PrgState {
 	heap){
 	return heap.entrySet()
 			.stream()
-			.filter(e->symTableAddr.contains(e.getKey())  && (!(e.getValue() instanceof RefValue) || symTableAddr.contains((((RefValue) e.getValue()).getAddr()))))   
+			.filter(e->symTableAddr.contains(e.getKey()))   
 			.collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
 	
 	}
 	
-	public List<Integer> getAddrFromSymTable(Collection<Value> symTableValues){
-	 return symTableValues.stream()
-	 .filter(v-> v instanceof RefValue )
-	 .map(v-> {RefValue v1 = (RefValue)v; return v1.getAddr();})
-	 .collect(Collectors.toList());
+	public List<Integer> getAddrFromSymTable(Collection<Value> symTableValues, Collection<Value> heapValues){
+		List<Integer> symTableList = symTableValues.stream()
+													.filter(v-> v instanceof RefValue )
+													.map(v-> {RefValue v1 = (RefValue)v; return v1.getAddr();})
+													.collect(Collectors.toList());
+		
+		List<Integer> heapList = heapValues.stream()
+				 .filter(v-> v instanceof RefValue )
+				 .map(v-> {RefValue v1 = (RefValue)v; return v1.getAddr();})
+				 .collect(Collectors.toList());
+		
+		symTableList.addAll(heapList);
+		return symTableList;
 	}
 
 	
