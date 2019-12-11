@@ -16,6 +16,13 @@ import Model.ADTs.*;
 
 class Interpreter {
 	public static void main(String[] args) throws MyException {
+		
+		/*
+		 * TODO:
+		 * fix printing to console
+		 * check thread garbage collecting
+		 */
+		
 		IStmt ex1=new CompStmt(new VarDeclStmt("v", new IntType()), new CompStmt(new AssignStmt("v", new ValueExp(new IntValue(2))), new PrintStmt(new VarExp("v"))));
 		MyIDictionary<String, Value> symTbl1 = new MyDictionary<String, Value>();
 		MyIList<Value> out1 = new MyList<Value>();
@@ -142,7 +149,65 @@ class Interpreter {
 		stk7.push(hst1);
 		PrgState prg7 = new PrgState(stk7, symTbl7, out7, FilTbl7, heap7);
 		MyIRepo repo7 = new Repo(prg7,"log7.txt");
-		Controller ctr7 = new Controller(repo7);
+		Controller ctr7 = new Controller(repo7);	
+		
+		MyIDictionary<String, Value> symTbl8 = new MyDictionary<String, Value>();
+		MyIList<Value> out8 = new MyList<Value>();
+		MyIStack<IStmt> stk8 = new MyStack<IStmt>();
+		MyITable<StringValue, BufferedReader> FilTbl8 = new FileTable<StringValue, BufferedReader>();
+		MyIHeap<Integer, Value> heap8 = new MyHeap<Integer, Value>();
+		IStmt ist1 = new VarDeclStmt("v", new IntType());
+		IStmt ist2 = new VarDeclStmt("a", new RefType(new IntType()));
+		IStmt ist3 = new AssignStmt("v", new ValueExp(new IntValue(10)));
+		IStmt ist4 = new newStmt(new StringValue("a"), new ValueExp(new IntValue(22)));
+		IStmt ist6 = new AssignStmt("v", new ValueExp(new IntValue(32)));
+		IStmt ist7 = new PrintStmt(new VarExp("v"));
+		IStmt ist8 = new PrintStmt(new readHeap(new VarExp("a")));
+		IStmt ist5 = new forkStmt(new CompStmt(new writeHeap("a", new ValueExp(new IntValue(30))), new CompStmt(ist6, new CompStmt(ist7, ist8))));
+		IStmt ist9 = new CompStmt(new PrintStmt(new VarExp("v")), new PrintStmt(new readHeap(new VarExp("a"))));
+		
+		stk8.push(ist9);
+		stk8.push(ist5);
+		stk8.push(ist4);
+		stk8.push(ist3);
+		stk8.push(ist2);
+		stk8.push(ist1);
+		
+		PrgState prg8 = new PrgState(stk8, symTbl8, out8, FilTbl8, heap8);
+		MyIRepo repo8 = new Repo(prg8, "log8.txt");
+		Controller ctr8 = new Controller(repo8);
+		
+		
+		MyIDictionary<String, Value> symTbl9 = new MyDictionary<String, Value>();
+		MyIList<Value> out9 = new MyList<Value>();
+		MyIStack<IStmt> stk9 = new MyStack<IStmt>();
+		MyITable<StringValue, BufferedReader> FilTbl9 = new FileTable<StringValue, BufferedReader>();
+		MyIHeap<Integer, Value> heap9 = new MyHeap<Integer, Value>();
+		
+		IStmt jst1 = new VarDeclStmt("v", new RefType(new IntType()));
+		IStmt jst2 = new newStmt(new StringValue("v"), new ValueExp(new IntValue(20)));
+		IStmt jst3 = new PrintStmt(new readHeap(new VarExp("v")));
+		IStmt jst4 = new VarDeclStmt("a", new RefType(new RefType(new IntType())));
+		IStmt jst5 = new newStmt(new StringValue("a"), new VarExp("v"));
+		IStmt jst6 = new newStmt(new StringValue("v"), new ValueExp(new IntValue(30)));
+		IStmt jst7 = new forkStmt(new CompStmt(jst6, new CompStmt(new newStmt(new StringValue("a"), new VarExp("v")), new PrintStmt(new readHeap(new readHeap(new VarExp("a")))))));
+		IStmt jst8 = new newStmt(new StringValue("v"), new ValueExp(new IntValue(40)));
+		IStmt jst9 = new PrintStmt(new readHeap(new readHeap(new VarExp("a"))));
+		IStmt jst10 = new writeHeap("v", new ValueExp(new IntValue(5)));
+		
+		stk9.push(jst10);
+		stk9.push(jst9);
+		stk9.push(jst8);
+		stk9.push(jst7);
+		stk9.push(jst5);
+		stk9.push(jst4);
+		stk9.push(jst3);
+		stk9.push(jst2);
+		stk9.push(jst1);
+		
+		PrgState prg9 = new PrgState(stk9, symTbl9, out9, FilTbl9, heap9);
+		MyIRepo repo9 = new Repo(prg9, "log9.txt");
+		Controller ctr9 = new Controller(repo9);
 		
 		TextMenu menu = new TextMenu();
 		menu.addCommand(new ExitCommand("0", "exit"));
@@ -153,6 +218,8 @@ class Interpreter {
 		menu.addCommand(new RunExample("5","File read test", ctr5));
 		menu.addCommand(new RunExample("6", "While test", ctr6));
 		menu.addCommand(new RunExample("7", "Heap test", ctr7));
+		menu.addCommand(new RunExample("8", "Fork test", ctr8));
+		menu.addCommand(new RunExample("9", "Fork garbage collecting test", ctr9));
 		menu.show();
 	}
 }

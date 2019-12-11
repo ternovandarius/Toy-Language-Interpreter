@@ -2,8 +2,6 @@ package Model.ADTs;
 
 import java.util.HashMap;
 
-import Model.Values.Value;
-
 public interface MyIDictionary<T, V> {
 
 	void clear();

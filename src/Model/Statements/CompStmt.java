@@ -24,7 +24,7 @@ public class CompStmt implements IStmt{
 		stk.push(snd);
 		stk.push(first);
 		state.setStack(stk);
-		return state;
+		return null;
 	}
 
 }

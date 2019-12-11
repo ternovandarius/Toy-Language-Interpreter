@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import Exceptions.MyException;
 import Model.Statements.IStmt;
 import Model.Values.RefValue;
 import Model.Values.StringValue;
@@ -18,7 +19,8 @@ public class PrgState {
 	MyIList<Value> out;
 	MyITable<StringValue, BufferedReader> FileTable;
 	MyIHeap<Integer, Value> heap;
-	//IStmt originalProgram; to be implemented
+	int id=-1;
+	static int sharedId=0;
 	
 	public PrgState(MyIStack<IStmt> stk, MyIDictionary<String, Value> symtbl, MyIList<Value> ot, MyITable<StringValue, BufferedReader> FilTbl, MyIHeap<Integer, Value> heap){
 		exeStack = stk;
@@ -26,8 +28,13 @@ public class PrgState {
 		out = ot;
 		FileTable=FilTbl;
 		this.heap=heap;
-		//originalProgram=deepCopy(prg);
-		//stk.push(prg);
+		id=sharedId;
+		PrgState.increaseId();
+	}
+	
+	public static synchronized void increaseId()
+	{
+		sharedId+=1;
 	}
 	
 	public void setStack(MyIStack<IStmt> newStack)
@@ -80,8 +87,19 @@ public class PrgState {
 		return this.heap;
 	}
 	
+	public Boolean isNotCompleted() {
+		return !exeStack.isEmpty();
+	}
+	
+	public PrgState oneStep() throws MyException{
+		 if(exeStack.isEmpty()) throw new MyException("prgstate stack is empty");
+		 IStmt crtStmt = exeStack.pop();
+		 return crtStmt.execute(this);
+	}
+	
 	public String toString()
 	{
+		String idMsg="ID: "+Integer.toString(id)+"\n";
 		String exeStackMsg="ExeStack:\n";
 		exeStackMsg+=exeStack.toString();
 		String symTableMsg="SymTable:\n";
@@ -92,7 +110,7 @@ public class PrgState {
 		fileTableMsg+=FileTable.toString();
 		String heapMsg ="Heap:\n";
 		heapMsg+=heap.toString();
-		String finalMsg=exeStackMsg+"\n"+symTableMsg+"\n"+outMsg+"\n"+fileTableMsg+"\n"+heapMsg;
+		String finalMsg=idMsg+"\n"+exeStackMsg+"\n"+symTableMsg+"\n"+outMsg+"\n"+fileTableMsg+"\n"+heapMsg+"\n"+"\n";
 		return finalMsg;
 	}
 	

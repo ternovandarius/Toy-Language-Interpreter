@@ -92,7 +92,7 @@ public class readFile implements IStmt{
 			}
 		}
 		state.setTable(symTable);
-		return state;
+		return null;
 	}
 
 }

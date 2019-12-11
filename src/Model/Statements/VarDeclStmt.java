@@ -55,7 +55,7 @@ public class VarDeclStmt implements IStmt{
 			}
 			state.setTable(symTbl);
 		}
-		return state;
+		return null;
 	}
 
 }

@@ -51,7 +51,7 @@ public class IfStmt implements IStmt{
 				stk.push(elseS);
 			state.setStack(stk);
 		}
-		return state;
+		return null;
 	}
 
 }

@@ -28,6 +28,6 @@ public class PrintStmt implements IStmt{
 		Value v=exp.eval(symTbl, heap);
 		out.add(0, v);
 		state.setList(out);
-		return state;
+		return null;
 	}
 }

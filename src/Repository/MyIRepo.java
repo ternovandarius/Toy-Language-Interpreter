@@ -1,9 +1,13 @@
 package Repository;
 
 import Model.ADTs.PrgState;
+
+import java.util.List;
+
 import Exceptions.MyException;
 
 public interface MyIRepo {
-	PrgState getCrtPrg();
-	void logPrgStateExec() throws MyException;
+	List<PrgState> getPrgList();
+	void setPrgList(List<PrgState> list);
+	void logPrgStateExec(PrgState mainState) throws MyException;
 }

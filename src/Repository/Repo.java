@@ -4,19 +4,20 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.List;
 
 import Exceptions.MyException;
 import Model.ADTs.PrgState;
 
 public class Repo implements MyIRepo{
 
-	PrgState mainState;
+	List<PrgState> list = new ArrayList<PrgState>();
 	String logFilePath = "";
 	
 	public Repo(PrgState state, String path)
 	{
-		mainState=state;
+		list.add(state);
 		logFilePath=path;
 	}
 	
@@ -28,17 +29,18 @@ public class Repo implements MyIRepo{
 		scan.close();
 	}*/
 	
-	@Override
-	public PrgState getCrtPrg() {
-		return mainState;
+	public List<PrgState> getPrgList()
+	{
+		return list;
 	}
 	
-	public void setCrtPrg(PrgState state) {
-		mainState=state;
+	public void setPrgList(List<PrgState> list) 
+	{
+		this.list=list;
 	}
 
 	@Override
-	public void logPrgStateExec() throws MyException {
+	public void logPrgStateExec(PrgState mainState) throws MyException {
 		// TODO Auto-generated method stub
 		try {
 			PrintWriter logFile= new PrintWriter(new BufferedWriter(new FileWriter(logFilePath, true)));

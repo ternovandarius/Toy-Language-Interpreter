@@ -64,7 +64,7 @@ public class newStmt implements IStmt{
 		}
 		state.setHeap(heap);
 		state.setTable(symTable);
-		return state;
+		return null;
 	}
 
 }

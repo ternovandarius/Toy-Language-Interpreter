@@ -60,7 +60,7 @@ public class closeRFile implements IStmt{
 			}
 		}
 		state.setFileTable(FileTable);
-		return state;
+		return null;
 	}
 
 }

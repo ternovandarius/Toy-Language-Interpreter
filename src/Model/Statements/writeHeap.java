@@ -69,7 +69,7 @@ public class writeHeap implements IStmt{
 		}
 		state.setTable(symTable);
 		state.setHeap(heap);
-		return state;
+		return null;
 	}
 
 }

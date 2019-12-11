@@ -60,7 +60,7 @@ public class openRFile implements IStmt{
 			}
 		}
 		state.setFileTable(FileTable);
-		return state;
+		return null;
 	}
 
 }

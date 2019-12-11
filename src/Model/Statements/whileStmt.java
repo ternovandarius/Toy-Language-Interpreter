@@ -49,7 +49,7 @@ public class whileStmt implements IStmt{
 			}
 		}
 		state.setStack(stk);
-		return state;
+		return null;
 	}
 
 }

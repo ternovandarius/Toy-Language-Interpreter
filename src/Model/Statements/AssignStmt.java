@@ -46,7 +46,7 @@ public class AssignStmt implements IStmt{
 			throw new MyException("The used variable "+id+" was not declared before.");
 		}
 		state.setTable(symTbl);
-		return state;
+		return null;
 	}
 
 }
