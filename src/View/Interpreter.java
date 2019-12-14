@@ -19,7 +19,6 @@ class Interpreter {
 		
 		/*
 		 * TODO:
-		 * fix printing to console
 		 * check thread garbage collecting
 		 */
 		
@@ -28,6 +27,8 @@ class Interpreter {
 		MyIList<Value> out1 = new MyList<Value>();
 		MyIStack<IStmt> stk1 = new MyStack<IStmt>();
 		MyITable<StringValue, BufferedReader> FilTbl1 = new FileTable<StringValue, BufferedReader>();
+		MyIDictionary<String, Type> typeEnv1 = new MyDictionary<String, Type>();
+		ex1.typecheck(typeEnv1);
 		stk1.push(ex1);
 		MyIHeap<Integer, Value> heap1 = new MyHeap<Integer, Value>();
 		PrgState prg1 = new PrgState(stk1, symTbl1, out1, FilTbl1, heap1);
@@ -44,6 +45,8 @@ class Interpreter {
 		MyIList<Value> out2 = new MyList<Value>();
 		MyIStack<IStmt> stk2 = new MyStack<IStmt>();
 		MyITable<StringValue, BufferedReader> FilTbl2 = new FileTable<StringValue, BufferedReader>();
+		MyIDictionary<String, Type> typeEnv2 = new MyDictionary<String, Type>();
+		ex2.typecheck(typeEnv2);
 		stk2.push(ex2);
 		MyIHeap<Integer, Value> heap2 = new MyHeap<Integer, Value>();
 		PrgState prg2 = new PrgState(stk2, symTbl2, out2, FilTbl2, heap2);
@@ -60,6 +63,8 @@ class Interpreter {
 		MyIList<Value> out3 = new MyList<Value>();
 		MyIStack<IStmt> stk3 = new MyStack<IStmt>();
 		MyITable<StringValue, BufferedReader> FilTbl3 = new FileTable<StringValue, BufferedReader>();
+		MyIDictionary<String, Type> typeEnv3 = new MyDictionary<String, Type>();
+		ex3.typecheck(typeEnv3);
 		stk3.push(ex3);
 		MyIHeap<Integer, Value> heap3 = new MyHeap<Integer, Value>();
 		PrgState prg3 = new PrgState(stk3, symTbl3, out3, FilTbl3, heap3);
@@ -74,6 +79,12 @@ class Interpreter {
 		IStmt stat3=new VarDeclStmt("b", new IntType());
 		IStmt stat4=new AssignStmt("b", new ValueExp(new IntValue(10)));
 		IStmt stat5=new IfStmt(new RelExp(new VarExp("a"), new VarExp("b"), "<"), new PrintStmt(new VarExp("b")), new PrintStmt(new VarExp("a")));
+		MyIDictionary<String, Type> typeEnv4 = new MyDictionary<String, Type>();
+		stat1.typecheck(typeEnv4);
+		stat2.typecheck(typeEnv4);
+		stat3.typecheck(typeEnv4);
+		stat4.typecheck(typeEnv4);
+		stat5.typecheck(typeEnv4);
 		stk4.push(stat5);
 		stk4.push(stat4);
 		stk4.push(stat3);
@@ -95,6 +106,14 @@ class Interpreter {
 		IStmt st5=new CompStmt(new readFile(new VarExp("varf"), "varc"), new PrintStmt(new VarExp("varc")));
 		IStmt st6=new CompStmt(new readFile(new VarExp("varf"), "varc"), new PrintStmt(new VarExp("varc")));
 		IStmt st7=new closeRFile(new VarExp("varf"));
+		MyIDictionary<String, Type> typeEnv5 = new MyDictionary<String, Type>();
+		st1.typecheck(typeEnv5);
+		st2.typecheck(typeEnv5);
+		st3.typecheck(typeEnv5);
+		st4.typecheck(typeEnv5);
+		st5.typecheck(typeEnv5);
+		st6.typecheck(typeEnv5);
+		st7.typecheck(typeEnv5);
 		stk5.push(st7);
 		stk5.push(st6);
 		stk5.push(st5);
@@ -116,7 +135,10 @@ class Interpreter {
 		IStmt wst1 = new VarDeclStmt("i", new IntType());
 		IStmt wst2 = new AssignStmt("i", new ValueExp(new IntValue(0)));
 		IStmt wst3 = new whileStmt(new RelExp(new VarExp("i"), new ValueExp(new IntValue(3)), "<="), new CompStmt(new PrintStmt(new VarExp("i")), new AssignStmt("i", new ArithExp('+', new VarExp("i"), new ValueExp(new IntValue(1))))));
-		
+		MyIDictionary<String, Type> typeEnv6 = new MyDictionary<String, Type>();
+		wst1.typecheck(typeEnv6);
+		wst2.typecheck(typeEnv6);
+		wst3.typecheck(typeEnv6);
 		stk6.push(wst3);
 		stk6.push(wst2);
 		stk6.push(wst1);
@@ -138,6 +160,15 @@ class Interpreter {
 		IStmt hst7 = new newStmt(new StringValue("a"), new VarExp("v"));
 		IStmt hst8 = new newStmt(new StringValue("v"), new ValueExp(new IntValue(30)));
 		IStmt hst9 = new PrintStmt(new readHeap(new readHeap(new VarExp("a"))));
+		MyIDictionary<String, Type> typeEnv7 = new MyDictionary<String, Type>();
+		hst1.typecheck(typeEnv7);
+		hst3.typecheck(typeEnv7);
+		hst4.typecheck(typeEnv7);
+		hst5.typecheck(typeEnv7);
+		hst6.typecheck(typeEnv7);
+		hst7.typecheck(typeEnv7);
+		hst8.typecheck(typeEnv7);
+		hst9.typecheck(typeEnv7);
 		
 		stk7.push(hst9);
 		stk7.push(hst8);
@@ -165,6 +196,13 @@ class Interpreter {
 		IStmt ist8 = new PrintStmt(new readHeap(new VarExp("a")));
 		IStmt ist5 = new forkStmt(new CompStmt(new writeHeap("a", new ValueExp(new IntValue(30))), new CompStmt(ist6, new CompStmt(ist7, ist8))));
 		IStmt ist9 = new CompStmt(new PrintStmt(new VarExp("v")), new PrintStmt(new readHeap(new VarExp("a"))));
+		MyIDictionary<String, Type> typeEnv8 = new MyDictionary<String, Type>();
+		ist1.typecheck(typeEnv8);
+		ist2.typecheck(typeEnv8);
+		ist3.typecheck(typeEnv8);
+		ist4.typecheck(typeEnv8);
+		ist5.typecheck(typeEnv8);
+		ist9.typecheck(typeEnv8);
 		
 		stk8.push(ist9);
 		stk8.push(ist5);
@@ -194,6 +232,17 @@ class Interpreter {
 		IStmt jst8 = new newStmt(new StringValue("v"), new ValueExp(new IntValue(40)));
 		IStmt jst9 = new PrintStmt(new readHeap(new readHeap(new VarExp("a"))));
 		IStmt jst10 = new writeHeap("v", new ValueExp(new IntValue(5)));
+		
+		MyIDictionary<String, Type> typeEnv9 = new MyDictionary<String, Type>();
+		jst1.typecheck(typeEnv9);
+		jst2.typecheck(typeEnv9);
+		jst3.typecheck(typeEnv9);
+		jst4.typecheck(typeEnv9);
+		jst5.typecheck(typeEnv9);
+		jst7.typecheck(typeEnv9);
+		jst8.typecheck(typeEnv9);
+		jst9.typecheck(typeEnv9);
+		jst10.typecheck(typeEnv9);
 		
 		stk9.push(jst10);
 		stk9.push(jst9);

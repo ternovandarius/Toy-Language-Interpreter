@@ -6,6 +6,7 @@ import Model.ADTs.MyIHeap;
 import Model.Values.RefValue;
 import Model.Values.Value;
 import Model.Types.IntType;
+import Model.Types.RefType;
 import Model.Types.Type;
 
 public class readHeap implements Exp{
@@ -46,6 +47,18 @@ public class readHeap implements Exp{
 				return hp.get(addr);
 			}
 		}
+	}
+
+	@Override
+	public Type typecheck(MyIDictionary<String, Type> typeEnv) throws MyException {
+		Type typ=exp.typecheck(typeEnv);
+		
+		if (typ instanceof RefType) {
+			RefType reft =(RefType) typ;
+			return reft.getInner();
+		} 
+		else
+			throw new MyException("The rH argument is not a Ref Type!"); 
 	}
 
 }

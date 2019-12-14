@@ -7,6 +7,7 @@ import Model.ADTs.MyIStack;
 import Model.ADTs.PrgState;
 import Model.Expressions.Exp;
 import Model.Types.BoolType;
+import Model.Types.Type;
 import Model.Values.BoolValue;
 import Model.Values.Value;
 
@@ -52,4 +53,16 @@ public class whileStmt implements IStmt{
 		return null;
 	}
 
+	@Override
+	public MyIDictionary<String, Type> typecheck(MyIDictionary<String, Type> typeEnv) throws MyException {
+		Type typexp=exp.typecheck(typeEnv);
+		
+		if (typexp.equals(new BoolType())) {
+			stmt.typecheck(typeEnv);
+			return typeEnv;
+		}
+		else
+			throw new MyException("The condition of WHILE has not the type bool!"); 
+	}
+	
 }

@@ -11,6 +11,7 @@ import Model.ADTs.MyITable;
 import Model.ADTs.PrgState;
 import Model.Expressions.Exp;
 import Model.Types.StringType;
+import Model.Types.Type;
 import Model.Values.StringValue;
 import Model.Values.Value;
 
@@ -61,6 +62,16 @@ public class openRFile implements IStmt{
 		}
 		state.setFileTable(FileTable);
 		return null;
+	}
+
+	@Override
+	public MyIDictionary<String, Type> typecheck(MyIDictionary<String, Type> typeEnv) throws MyException {
+		Type typexp = exp.typecheck(typeEnv);
+		
+		if (typexp.equals(new StringType()))
+			return typeEnv;
+		else
+			throw new MyException("Exp is not string type!");
 	}
 
 }

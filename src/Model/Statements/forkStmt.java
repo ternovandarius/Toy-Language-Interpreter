@@ -9,6 +9,7 @@ import Model.ADTs.MyIDictionary;
 import Model.ADTs.MyIStack;
 import Model.ADTs.MyStack;
 import Model.ADTs.PrgState;
+import Model.Types.Type;
 import Model.Values.Value;
 
 public class forkStmt implements IStmt{
@@ -42,6 +43,11 @@ public class forkStmt implements IStmt{
 		
 		PrgState forked = new PrgState(forkedStack, symTableCopy, state.getList(), state.getFileTable(), state.getHeap());
 		return forked;
+	}
+	
+	@Override
+	public MyIDictionary<String, Type> typecheck(MyIDictionary<String, Type> typeEnv) throws MyException {
+		return st.typecheck(typeEnv);
 	}
 
 }

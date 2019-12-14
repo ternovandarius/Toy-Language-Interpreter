@@ -54,4 +54,17 @@ public class IfStmt implements IStmt{
 		return null;
 	}
 
+	@Override
+	public MyIDictionary<String, Type> typecheck(MyIDictionary<String, Type> typeEnv) throws MyException {
+		Type typexp=exp.typecheck(typeEnv);
+		
+		if (typexp.equals(new BoolType())) {
+			thenS.typecheck(typeEnv);
+			elseS.typecheck(typeEnv);
+			return typeEnv;
+		}
+		else
+			throw new MyException("The condition of IF has not the type bool!"); 
+	}
+
 }

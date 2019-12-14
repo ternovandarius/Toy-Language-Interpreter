@@ -6,6 +6,7 @@ import Model.ADTs.MyIHeap;
 import Model.ADTs.MyIList;
 import Model.ADTs.PrgState;
 import Model.Expressions.Exp;
+import Model.Types.Type;
 import Model.Values.Value;
 
 public class PrintStmt implements IStmt{
@@ -29,5 +30,11 @@ public class PrintStmt implements IStmt{
 		out.add(0, v);
 		state.setList(out);
 		return null;
+	}
+
+	@Override
+	public MyIDictionary<String, Type> typecheck(MyIDictionary<String, Type> typeEnv) throws MyException {
+		exp.typecheck(typeEnv);
+		return typeEnv;
 	}
 }

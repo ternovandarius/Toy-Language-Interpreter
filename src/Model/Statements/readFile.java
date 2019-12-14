@@ -11,6 +11,7 @@ import Model.ADTs.PrgState;
 import Model.Expressions.Exp;
 import Model.Types.IntType;
 import Model.Types.StringType;
+import Model.Types.Type;
 import Model.Values.IntValue;
 import Model.Values.StringValue;
 import Model.Values.Value;
@@ -93,6 +94,20 @@ public class readFile implements IStmt{
 		}
 		state.setTable(symTable);
 		return null;
+	}
+
+	@Override
+	public MyIDictionary<String, Type> typecheck(MyIDictionary<String, Type> typeEnv) throws MyException {
+		Type typevar = typeEnv.lookup(var_name);
+		Type typexp = exp.typecheck(typeEnv);
+		
+		if (typevar.equals(new IntType()))
+			if(typexp.equals(new StringType()))
+				return typeEnv;
+			else
+				throw new MyException("ReadFile stmt: exp is not string");
+		else
+			throw new MyException("ReadFile stmt: var is not int ");
 	}
 
 }
