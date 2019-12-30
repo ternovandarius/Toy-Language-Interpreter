@@ -152,3 +152,165 @@ Out:
 
 FileTable:
 {}
+ID: 3
+
+ExeStack:
+(int a;(a=3;(int b;(b=10;(IF(a<b)THEN(print(b))ELSE(print(a)))))))
+SymTable:
+
+Out:
+
+FileTable:
+{}
+Heap:
+{}
+
+ID: 3
+
+ExeStack:
+int a
+(a=3;(int b;(b=10;(IF(a<b)THEN(print(b))ELSE(print(a))))))
+SymTable:
+
+Out:
+
+FileTable:
+{}
+Heap:
+{}
+
+ID: 3
+
+ExeStack:
+(a=3;(int b;(b=10;(IF(a<b)THEN(print(b))ELSE(print(a))))))
+SymTable:
+a-->0
+
+Out:
+
+FileTable:
+{}
+Heap:
+{}
+
+ID: 3
+
+ExeStack:
+a=3
+(int b;(b=10;(IF(a<b)THEN(print(b))ELSE(print(a)))))
+SymTable:
+a-->0
+
+Out:
+
+FileTable:
+{}
+Heap:
+{}
+
+ID: 3
+
+ExeStack:
+(int b;(b=10;(IF(a<b)THEN(print(b))ELSE(print(a)))))
+SymTable:
+a-->3
+
+Out:
+
+FileTable:
+{}
+Heap:
+{}
+
+ID: 3
+
+ExeStack:
+int b
+(b=10;(IF(a<b)THEN(print(b))ELSE(print(a))))
+SymTable:
+a-->3
+
+Out:
+
+FileTable:
+{}
+Heap:
+{}
+
+ID: 3
+
+ExeStack:
+(b=10;(IF(a<b)THEN(print(b))ELSE(print(a))))
+SymTable:
+a-->3
+b-->0
+
+Out:
+
+FileTable:
+{}
+Heap:
+{}
+
+ID: 3
+
+ExeStack:
+b=10
+(IF(a<b)THEN(print(b))ELSE(print(a)))
+SymTable:
+a-->3
+b-->0
+
+Out:
+
+FileTable:
+{}
+Heap:
+{}
+
+ID: 3
+
+ExeStack:
+(IF(a<b)THEN(print(b))ELSE(print(a)))
+SymTable:
+a-->3
+b-->10
+
+Out:
+
+FileTable:
+{}
+Heap:
+{}
+
+ID: 3
+
+ExeStack:
+print(b)
+SymTable:
+a-->3
+b-->10
+
+Out:
+
+FileTable:
+{}
+Heap:
+{}
+
+ID: 3
+
+ExeStack:
+
+SymTable:
+a-->3
+b-->10
+
+Out:
+10
+
+FileTable:
+{}
+Heap:
+{}
+

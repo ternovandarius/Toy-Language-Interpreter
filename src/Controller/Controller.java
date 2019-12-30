@@ -1,7 +1,9 @@
 package Controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
@@ -9,7 +11,9 @@ import java.util.concurrent.Executors;
 import java.util.stream.Collectors;
 
 import Exceptions.MyException;
+import Model.ADTs.MyIHeap;
 import Model.ADTs.PrgState;
+import Model.Values.Value;
 import Repository.MyIRepo;
 
 public class Controller implements MyIController{
@@ -74,24 +78,31 @@ public class Controller implements MyIController{
 		executor = Executors.newFixedThreadPool(2);
 		
 		List<PrgState> prgList=removeCompletedPrg(repo.getPrgList());
-		prgList.forEach(prg ->{
-			try {
-				System.out.println(prg.toString());
-				repo.logPrgStateExec(prg);
-			} catch (MyException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		});
 		 while(prgList.size() > 0){
 			 System.out.println("Nr. of active threads: "+Integer.toString(prgList.size()));
 		 try {
-			 List<Integer> allSymTableAddrs = new ArrayList<Integer>();
 			oneStepForAllPrg(prgList);
+					
+			//in some cases, the garbage collector only removes the references to unneeded addresses on one step, so we
+			//need to use the garbage collector multiple times, until there's nothing else to collect
+			HashMap<Integer,Value> lastHeap=new HashMap<Integer,Value>(prgList.get(0).getHeap().getContent());
+			List<Integer> allSymTableAddrs = new ArrayList<Integer>();
+			HashMap<Integer, Value> heapAddrs = prgList.get(0).getHeap().getContent();
 			prgList.forEach((prg) -> allSymTableAddrs.addAll(prg.getAddrFromSymTable(prg.getTable().getContent().values(), prg.getHeap().getContent().values())));
-			prgList.forEach((prg) -> prg.getHeap().setContent(prg.unsafeGarbageCollector(
+			prgList.get(0).getHeap().setContent(prgList.get(0).unsafeGarbageCollector(
 					 allSymTableAddrs,
-					 prg.getHeap().getContent())));
+					 heapAddrs));
+			
+			while(!lastHeap.equals(prgList.get(0).getHeap().getContent()))
+			{
+				lastHeap=new HashMap<Integer,Value>(prgList.get(0).getHeap().getContent());
+				List<Integer> newSymTableAddrs = new ArrayList<Integer>();
+				prgList.forEach((prg) -> newSymTableAddrs.addAll(prg.getAddrFromSymTable(prg.getTable().getContent().values(), prg.getHeap().getContent().values())));
+				prgList.get(0).getHeap().setContent(prgList.get(0).unsafeGarbageCollector(
+						 newSymTableAddrs,
+						 lastHeap));
+			}
+			
 			prgList.forEach(prg ->{
 				try {
 					System.out.println(prg.toString());
@@ -108,6 +119,16 @@ public class Controller implements MyIController{
 		 prgList=removeCompletedPrg(repo.getPrgList());
 		}
 		executor.shutdownNow();
+		
+		prgList.forEach(prg ->{
+			try {
+				System.out.println(prg.toString());
+				repo.logPrgStateExec(prg);
+			} catch (MyException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		});
 		
 		repo.setPrgList(prgList);
 	}

@@ -8,12 +8,12 @@ public class MyList<T> implements MyIList<T> {
 	List<T> list = new ArrayList<T>();
 	
 	@Override
-	public void add(int index, T elem) {
+	public synchronized void add(int index, T elem) {
 		// TODO Auto-generated method stub
 		list.add(index, elem);
 	}
 	
-	public String toString()
+	public synchronized String toString()
 	{
 		//return list.toString();
 		String msg="";
@@ -26,37 +26,37 @@ public class MyList<T> implements MyIList<T> {
 	}
 
 	@Override
-	public void clear() {
+	public synchronized void clear() {
 		// TODO Auto-generated method stub
 		list.clear();
 	}
 
 	@Override
-	public T get(int index) {
+	public synchronized T get(int index) {
 		// TODO Auto-generated method stub
 		return list.get(index);
 	}
 
 	@Override
-	public boolean isEmpty() {
+	public synchronized boolean isEmpty() {
 		// TODO Auto-generated method stub
 		return list.isEmpty();
 	}
 
 	@Override
-	public boolean contains(T element) {
+	public synchronized boolean contains(T element) {
 		// TODO Auto-generated method stub
 		return list.contains(element);
 	}
 
 	@Override
-	public boolean remove(T element) {
+	public synchronized boolean remove(T element) {
 		// TODO Auto-generated method stub
 		return list.remove(element);
 	}
 
 	@Override
-	public int size() {
+	public synchronized int size() {
 		// TODO Auto-generated method stub
 		return list.size();
 	}

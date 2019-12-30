@@ -20,7 +20,7 @@ public class PrgState {
 	MyITable<StringValue, BufferedReader> FileTable;
 	MyIHeap<Integer, Value> heap;
 	int id=-1;
-	static int sharedId=0;
+	static int sharedId=-1;
 	
 	public PrgState(MyIStack<IStmt> stk, MyIDictionary<String, Value> symtbl, MyIList<Value> ot, MyITable<StringValue, BufferedReader> FilTbl, MyIHeap<Integer, Value> heap){
 		exeStack = stk;
@@ -28,13 +28,13 @@ public class PrgState {
 		out = ot;
 		FileTable=FilTbl;
 		this.heap=heap;
-		id=sharedId;
-		PrgState.increaseId();
+		id=PrgState.increaseId();
 	}
 	
-	public static synchronized void increaseId()
+	public static synchronized int increaseId()
 	{
 		sharedId+=1;
+		return sharedId;
 	}
 	
 	public void setStack(MyIStack<IStmt> newStack)

@@ -17,12 +17,8 @@ import Model.ADTs.*;
 class Interpreter {
 	public static void main(String[] args) throws MyException {
 		
-		/*
-		 * TODO:
-		 * check thread garbage collecting
-		 */
-		
-		IStmt ex1=new CompStmt(new VarDeclStmt("v", new IntType()), new CompStmt(new AssignStmt("v", new ValueExp(new IntValue(2))), new PrintStmt(new VarExp("v"))));
+		IStmt ex1=new CompStmt(new VarDeclStmt("v", new IntType()), 
+				new CompStmt(new AssignStmt("v", new ValueExp(new IntValue(2))), new PrintStmt(new VarExp("v"))));
 		MyIDictionary<String, Value> symTbl1 = new MyDictionary<String, Value>();
 		MyIList<Value> out1 = new MyList<Value>();
 		MyIStack<IStmt> stk1 = new MyStack<IStmt>();
@@ -79,17 +75,10 @@ class Interpreter {
 		IStmt stat3=new VarDeclStmt("b", new IntType());
 		IStmt stat4=new AssignStmt("b", new ValueExp(new IntValue(10)));
 		IStmt stat5=new IfStmt(new RelExp(new VarExp("a"), new VarExp("b"), "<"), new PrintStmt(new VarExp("b")), new PrintStmt(new VarExp("a")));
+		IStmt compStat=new CompStmt(stat1, new CompStmt(stat2, new CompStmt(stat3, new CompStmt(stat4, stat5))));
 		MyIDictionary<String, Type> typeEnv4 = new MyDictionary<String, Type>();
-		stat1.typecheck(typeEnv4);
-		stat2.typecheck(typeEnv4);
-		stat3.typecheck(typeEnv4);
-		stat4.typecheck(typeEnv4);
-		stat5.typecheck(typeEnv4);
-		stk4.push(stat5);
-		stk4.push(stat4);
-		stk4.push(stat3);
-		stk4.push(stat2);
-		stk4.push(stat1);
+		compStat.typecheck(typeEnv4);
+		stk4.push(compStat);
 		MyITable<StringValue, BufferedReader> FilTbl4 = new FileTable<StringValue, BufferedReader>();
 		MyIHeap<Integer, Value> heap4 = new MyHeap<Integer, Value>();
 		PrgState prg4 = new PrgState(stk4, symTbl4, out4, FilTbl4, heap4);
@@ -106,21 +95,11 @@ class Interpreter {
 		IStmt st5=new CompStmt(new readFile(new VarExp("varf"), "varc"), new PrintStmt(new VarExp("varc")));
 		IStmt st6=new CompStmt(new readFile(new VarExp("varf"), "varc"), new PrintStmt(new VarExp("varc")));
 		IStmt st7=new closeRFile(new VarExp("varf"));
+		IStmt compSt=new CompStmt(st1, new CompStmt(st2, new CompStmt(st3, new CompStmt(st4,
+						new CompStmt(st5, new CompStmt(st6, st7))))));
 		MyIDictionary<String, Type> typeEnv5 = new MyDictionary<String, Type>();
-		st1.typecheck(typeEnv5);
-		st2.typecheck(typeEnv5);
-		st3.typecheck(typeEnv5);
-		st4.typecheck(typeEnv5);
-		st5.typecheck(typeEnv5);
-		st6.typecheck(typeEnv5);
-		st7.typecheck(typeEnv5);
-		stk5.push(st7);
-		stk5.push(st6);
-		stk5.push(st5);
-		stk5.push(st4);
-		stk5.push(st3);
-		stk5.push(st2);
-		stk5.push(st1);
+		compSt.typecheck(typeEnv5);
+		stk5.push(compSt);
 		MyITable<StringValue, BufferedReader> FilTbl5 = new FileTable<StringValue, BufferedReader>();
 		MyIHeap<Integer, Value> heap5 = new MyHeap<Integer, Value>();
 		PrgState prg5 = new PrgState(stk5, symTbl5, out5, FilTbl5, heap5);
@@ -135,13 +114,10 @@ class Interpreter {
 		IStmt wst1 = new VarDeclStmt("i", new IntType());
 		IStmt wst2 = new AssignStmt("i", new ValueExp(new IntValue(0)));
 		IStmt wst3 = new whileStmt(new RelExp(new VarExp("i"), new ValueExp(new IntValue(3)), "<="), new CompStmt(new PrintStmt(new VarExp("i")), new AssignStmt("i", new ArithExp('+', new VarExp("i"), new ValueExp(new IntValue(1))))));
+		IStmt compWst = new CompStmt(wst1, new CompStmt(wst2, wst3));
 		MyIDictionary<String, Type> typeEnv6 = new MyDictionary<String, Type>();
-		wst1.typecheck(typeEnv6);
-		wst2.typecheck(typeEnv6);
-		wst3.typecheck(typeEnv6);
-		stk6.push(wst3);
-		stk6.push(wst2);
-		stk6.push(wst1);
+		compWst.typecheck(typeEnv6);
+		stk6.push(compWst);
 		PrgState prg6 = new PrgState(stk6, symTbl6, out6, FilTbl6, heap6);
 		MyIRepo repo6 = new Repo(prg6,"log6.txt");
 		Controller ctr6 = new Controller(repo6);
@@ -152,32 +128,18 @@ class Interpreter {
 		MyITable<StringValue, BufferedReader> FilTbl7 = new FileTable<StringValue, BufferedReader>();
 		MyIHeap<Integer, Value> heap7 = new MyHeap<Integer, Value>();
 		IStmt hst1 = new VarDeclStmt("v", new RefType(new IntType()));
-		//IStmt hst2 = new AssignStmt("v", new ValueExp(new RefValue(0, new IntType())));
-		IStmt hst3 = new newStmt(new StringValue("v"), new ValueExp(new IntValue(20)));
-		IStmt hst4 = new PrintStmt(new readHeap(new VarExp("v")));
-		IStmt hst5 = new writeHeap("v", new ValueExp(new IntValue(5)));
-		IStmt hst6 = new VarDeclStmt("a", new RefType(new RefType(new IntType())));
-		IStmt hst7 = new newStmt(new StringValue("a"), new VarExp("v"));
-		IStmt hst8 = new newStmt(new StringValue("v"), new ValueExp(new IntValue(30)));
-		IStmt hst9 = new PrintStmt(new readHeap(new readHeap(new VarExp("a"))));
+		IStmt hst2 = new newStmt(new StringValue("v"), new ValueExp(new IntValue(20)));
+		IStmt hst3 = new PrintStmt(new readHeap(new VarExp("v")));
+		IStmt hst4 = new writeHeap("v", new ValueExp(new IntValue(5)));
+		IStmt hst5 = new VarDeclStmt("a", new RefType(new RefType(new IntType())));
+		IStmt hst6 = new newStmt(new StringValue("a"), new VarExp("v"));
+		IStmt hst7 = new newStmt(new StringValue("v"), new ValueExp(new IntValue(30)));
+		IStmt hst8 = new PrintStmt(new readHeap(new readHeap(new VarExp("a"))));
+		IStmt compHst = new CompStmt(hst1, new CompStmt(hst2, new CompStmt(hst3, new CompStmt(hst4, 
+						new CompStmt(hst5, new CompStmt(hst6, new CompStmt(hst7, hst8)))))));
 		MyIDictionary<String, Type> typeEnv7 = new MyDictionary<String, Type>();
-		hst1.typecheck(typeEnv7);
-		hst3.typecheck(typeEnv7);
-		hst4.typecheck(typeEnv7);
-		hst5.typecheck(typeEnv7);
-		hst6.typecheck(typeEnv7);
-		hst7.typecheck(typeEnv7);
-		hst8.typecheck(typeEnv7);
-		hst9.typecheck(typeEnv7);
-		
-		stk7.push(hst9);
-		stk7.push(hst8);
-		stk7.push(hst7);
-		stk7.push(hst6);
-		stk7.push(hst5);
-		stk7.push(hst4);
-		stk7.push(hst3);
-		stk7.push(hst1);
+		compHst.typecheck(typeEnv7);
+		stk7.push(compHst);
 		PrgState prg7 = new PrgState(stk7, symTbl7, out7, FilTbl7, heap7);
 		MyIRepo repo7 = new Repo(prg7,"log7.txt");
 		Controller ctr7 = new Controller(repo7);	
@@ -196,25 +158,14 @@ class Interpreter {
 		IStmt ist8 = new PrintStmt(new readHeap(new VarExp("a")));
 		IStmt ist5 = new forkStmt(new CompStmt(new writeHeap("a", new ValueExp(new IntValue(30))), new CompStmt(ist6, new CompStmt(ist7, ist8))));
 		IStmt ist9 = new CompStmt(new PrintStmt(new VarExp("v")), new PrintStmt(new readHeap(new VarExp("a"))));
+		IStmt compIst = new CompStmt(ist1, new CompStmt(ist2, new CompStmt(ist3, new CompStmt(ist4, 
+						new CompStmt(ist5, ist9)))));
 		MyIDictionary<String, Type> typeEnv8 = new MyDictionary<String, Type>();
-		ist1.typecheck(typeEnv8);
-		ist2.typecheck(typeEnv8);
-		ist3.typecheck(typeEnv8);
-		ist4.typecheck(typeEnv8);
-		ist5.typecheck(typeEnv8);
-		ist9.typecheck(typeEnv8);
-		
-		stk8.push(ist9);
-		stk8.push(ist5);
-		stk8.push(ist4);
-		stk8.push(ist3);
-		stk8.push(ist2);
-		stk8.push(ist1);
-		
+		compIst.typecheck(typeEnv8);
+		stk8.push(compIst);
 		PrgState prg8 = new PrgState(stk8, symTbl8, out8, FilTbl8, heap8);
 		MyIRepo repo8 = new Repo(prg8, "log8.txt");
 		Controller ctr8 = new Controller(repo8);
-		
 		
 		MyIDictionary<String, Value> symTbl9 = new MyDictionary<String, Value>();
 		MyIList<Value> out9 = new MyList<Value>();
@@ -232,43 +183,27 @@ class Interpreter {
 		IStmt jst8 = new newStmt(new StringValue("v"), new ValueExp(new IntValue(40)));
 		IStmt jst9 = new PrintStmt(new readHeap(new readHeap(new VarExp("a"))));
 		IStmt jst10 = new writeHeap("v", new ValueExp(new IntValue(5)));
-		
+		IStmt compJst = new CompStmt(jst1, new CompStmt(jst2, new CompStmt(jst3, new CompStmt(jst4, 
+						new CompStmt(jst5, new CompStmt(jst7, new CompStmt(jst8, new CompStmt(jst9, jst10))))))));
 		MyIDictionary<String, Type> typeEnv9 = new MyDictionary<String, Type>();
-		jst1.typecheck(typeEnv9);
-		jst2.typecheck(typeEnv9);
-		jst3.typecheck(typeEnv9);
-		jst4.typecheck(typeEnv9);
-		jst5.typecheck(typeEnv9);
-		jst7.typecheck(typeEnv9);
-		jst8.typecheck(typeEnv9);
-		jst9.typecheck(typeEnv9);
-		jst10.typecheck(typeEnv9);
-		
-		stk9.push(jst10);
-		stk9.push(jst9);
-		stk9.push(jst8);
-		stk9.push(jst7);
-		stk9.push(jst5);
-		stk9.push(jst4);
-		stk9.push(jst3);
-		stk9.push(jst2);
-		stk9.push(jst1);
-		
+		compJst.typecheck(typeEnv9);
+		stk9.push(compJst);
 		PrgState prg9 = new PrgState(stk9, symTbl9, out9, FilTbl9, heap9);
 		MyIRepo repo9 = new Repo(prg9, "log9.txt");
 		Controller ctr9 = new Controller(repo9);
+		
 		
 		TextMenu menu = new TextMenu();
 		menu.addCommand(new ExitCommand("0", "exit"));
 		menu.addCommand(new RunExample("1",ex1.toString(),ctr1));
 		menu.addCommand(new RunExample("2",ex2.toString(),ctr2));
 		menu.addCommand(new RunExample("3",ex3.toString(),ctr3));
-		menu.addCommand(new RunExample("4","Operator test",ctr4));
-		menu.addCommand(new RunExample("5","File read test", ctr5));
-		menu.addCommand(new RunExample("6", "While test", ctr6));
-		menu.addCommand(new RunExample("7", "Heap test", ctr7));
-		menu.addCommand(new RunExample("8", "Fork test", ctr8));
-		menu.addCommand(new RunExample("9", "Fork garbage collecting test", ctr9));
+		menu.addCommand(new RunExample("4",compStat.toString(),ctr4));
+		menu.addCommand(new RunExample("5",compSt.toString(), ctr5));
+		menu.addCommand(new RunExample("6",compWst.toString(), ctr6));
+		menu.addCommand(new RunExample("7",compHst.toString(), ctr7));
+		menu.addCommand(new RunExample("8",compIst.toString(), ctr8));
+		menu.addCommand(new RunExample("9",compJst.toString(), ctr9));
 		menu.show();
 	}
 }

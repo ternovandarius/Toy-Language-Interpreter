@@ -54,8 +54,8 @@ public class newStmt implements IStmt{
 				}
 				else
 				{
-					heap.put(newVal);
-					int addr=heap.getLastPos();
+					int addr=heap.generateNext();
+					heap.put(addr, newVal);
 					Type newRefType = ((RefValue)val).getInnerType();
 					Value newRefVal = new RefValue(addr, newRefType);
 					symTable.update(varName.getVal(), newRefVal);
