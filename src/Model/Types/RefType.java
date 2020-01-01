@@ -14,17 +14,20 @@ public class RefType implements Type{
 		 return inner;
 	 }
 	 
-	 public boolean equals(Object another){
+	 @Override
+	public boolean equals(Object another){
 		 if (another instanceof RefType)
 			 	return true;//inner.equals(((RefType) another).getInner());
 		 else
 			 return false;
 	 }
 	 
-	 public String toString() { 
+	 @Override
+	public String toString() { 
 		 return "Ref(" +inner.toString()+")";
 	}
-	 public Value defaultValue() { 
+	 @Override
+	public Value defaultValue() { 
 		 return new RefValue(0, inner);
 	}
 }

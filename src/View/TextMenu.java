@@ -23,7 +23,7 @@ public class TextMenu {
 	 
 	 public void show(){
 		 Scanner scanner=new Scanner(System.in);
-		 while(true){
+		 while(true) {
 			 printMenu();
 			 System.out.printf("Input the option: ");
 			 String key=scanner.nextLine();
@@ -36,3 +36,4 @@ public class TextMenu {
 		 }
 	 }
 }
+

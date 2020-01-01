@@ -9,5 +9,6 @@ import Model.Values.Value;
 public interface Exp {
 	Value eval(MyIDictionary<String,Value> tbl, MyIHeap<Integer,Value> hp) throws MyException;
 	Type typecheck(MyIDictionary<String,Type> typeEnv) throws MyException;
+	@Override
 	public String toString();
 }

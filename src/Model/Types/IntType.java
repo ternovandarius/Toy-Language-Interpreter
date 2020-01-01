@@ -5,6 +5,7 @@ import Model.Values.Value;
 
 public class IntType implements Type{
 	
+	@Override
 	public boolean equals(Object another) {
 		if(another instanceof IntType)
 		{
@@ -14,6 +15,7 @@ public class IntType implements Type{
 			return false;
 	}
 	
+	@Override
 	public String toString() {
 		return "int";
 	}

@@ -11,6 +11,7 @@ public class MyDictionary<T, V> implements MyIDictionary<T, V> {
 		dict.clear();
 	}
 	
+	@Override
 	public String toString()
 	{
 		//return dict.toString();
@@ -69,6 +70,7 @@ public class MyDictionary<T, V> implements MyIDictionary<T, V> {
 		return this.get(id);
 	}
 	
+	@Override
 	public void update(T id, V val)
 	{
 		this.dict.replace(id, val);

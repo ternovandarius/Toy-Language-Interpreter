@@ -14,6 +14,7 @@ public class RefValue implements Value{
 		locationType=locType;
 	}
 	
+	@Override
 	public boolean equals(Object another) {
 		if (another instanceof RefValue)
 		{
@@ -37,6 +38,7 @@ public class RefValue implements Value{
 		address=addr;
 	}
 	
+	@Override
 	public String toString()
 	{
 		return "Ref("+locationType.toString()+")";
@@ -47,6 +49,7 @@ public class RefValue implements Value{
 		return locationType;
 	}
 	
+	@Override
 	public Type getType()
 	{
 		return new RefType(locationType);

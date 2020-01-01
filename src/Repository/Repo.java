@@ -29,11 +29,13 @@ public class Repo implements MyIRepo{
 		scan.close();
 	}*/
 	
+	@Override
 	public List<PrgState> getPrgList()
 	{
 		return list;
 	}
 	
+	@Override
 	public void setPrgList(List<PrgState> list) 
 	{
 		this.list=list;

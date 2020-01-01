@@ -6,6 +6,7 @@ import Model.Types.Type;
 public class StringValue implements Value{
 	String str;
 	
+	@Override
 	public boolean equals(Object another) {
 		if (another instanceof StringValue)
 		{
@@ -27,10 +28,12 @@ public class StringValue implements Value{
 		return str;
 	}
 	
+	@Override
 	public String toString() {
 		return str;
 	}
 	
+	@Override
 	public Type getType() {
 		return new StringType();
 	}

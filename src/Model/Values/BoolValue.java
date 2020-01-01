@@ -6,6 +6,7 @@ import Model.Types.Type;
 public class BoolValue implements Value{
 	boolean val;
 	
+	@Override
 	public boolean equals(Object another) {
 		if (another instanceof BoolValue)
 		{
@@ -27,10 +28,12 @@ public class BoolValue implements Value{
 		return this.val;
 	}
 	
+	@Override
 	public String toString() {
 		return Boolean.toString(val);
 	}
 	
+	@Override
 	public Type getType() {
 		return new BoolType();
 	}

@@ -16,6 +16,7 @@ public class MyException extends Exception{
 		this.msg=msg;
 	}
 	
+	@Override
 	public String toString() {
 		return this.msg;
 	}

@@ -7,10 +7,12 @@ import Model.Types.*;
 import Model.Expressions.*;
 import Model.Values.*;
 import Repository.*;
+import UI.mainFX;
 import Controller.*;
 import Exceptions.MyException;
 
 import java.io.BufferedReader;
+import java.util.Scanner;
 
 import Model.ADTs.*;
 
@@ -204,6 +206,30 @@ class Interpreter {
 		menu.addCommand(new RunExample("7",compHst.toString(), ctr7));
 		menu.addCommand(new RunExample("8",compIst.toString(), ctr8));
 		menu.addCommand(new RunExample("9",compJst.toString(), ctr9));
-		menu.show();
+		
+		mainFX menuFX = new mainFX();
+		menuFX.addCommand(new RunExample("1",ex1.toString(),ctr1));
+		menuFX.addCommand(new RunExample("2",ex2.toString(),ctr2));
+		menuFX.addCommand(new RunExample("3",ex3.toString(),ctr3));
+		menuFX.addCommand(new RunExample("4",compStat.toString(),ctr4));
+		menuFX.addCommand(new RunExample("5",compSt.toString(), ctr5));
+		menuFX.addCommand(new RunExample("6",compWst.toString(), ctr6));
+		menuFX.addCommand(new RunExample("7",compHst.toString(), ctr7));
+		menuFX.addCommand(new RunExample("8",compIst.toString(), ctr8));
+		menuFX.addCommand(new RunExample("9",compJst.toString(), ctr9));
+		
+		Scanner scanner=new Scanner(System.in);
+		while(true){
+			 System.out.printf("Select your preferred display method:\n0.Exit\n1.Console\n2.JavaFX\n");
+			 String introKey=scanner.nextLine().toString();
+			 if (introKey.equals("0"))
+				 System.exit(0);
+			 else if (introKey.equals("1"))
+				 menu.show();
+			 else if (introKey.equals("2"))
+				 menuFX.start(mainFX.classStage);
+			 else
+				 System.out.printf("Invalid command!\n");
+		 }
 	}
 }

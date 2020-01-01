@@ -21,6 +21,7 @@ public class CompStmt implements IStmt{
 		return "(" + first.toString() + ";" + snd.toString() + ")";
 	}
 
+	@Override
 	public PrgState execute(PrgState state) throws MyException{
 		MyIStack<IStmt> stk = state.getStack();
 		stk.push(snd);

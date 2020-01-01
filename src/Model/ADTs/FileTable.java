@@ -12,6 +12,7 @@ HashMap<T, V> dict = new HashMap<T, V>();
 		dict.clear();
 	}
 	
+	@Override
 	public synchronized String toString()
 	{
 		return dict.toString();
@@ -64,6 +65,7 @@ HashMap<T, V> dict = new HashMap<T, V>();
 		return this.get(id);
 	}
 	
+	@Override
 	public synchronized void update(T id, V val)
 	{
 		this.dict.replace(id, val);

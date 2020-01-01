@@ -7,6 +7,7 @@ public class MyStack<T> implements MyIStack<T> {
 
 	Stack<T> stack = new Stack<T>();
 	
+	@Override
 	public String toString()
 	{
 		String msg="";

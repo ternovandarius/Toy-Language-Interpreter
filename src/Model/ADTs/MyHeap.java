@@ -15,21 +15,25 @@ public class MyHeap<T,V> implements MyIHeap<T,V>{
 		dict.clear();
 	}
 	
+	@Override
 	public synchronized int generateNext() {
 		addr+=1;
 		return addr;
 	}
 	
+	@Override
 	public synchronized void setContent(Map<Integer,V> m)
 	{
 		dict=(HashMap<Integer, V>) m;
 	}
 	
+	@Override
 	public synchronized HashMap<Integer, V> getContent()
 	{
 		return dict;
 	}
 	
+	@Override
 	public synchronized String toString()
 	{
 		return dict.toString();
@@ -77,6 +81,7 @@ public class MyHeap<T,V> implements MyIHeap<T,V>{
 		return this.get(id);
 	}
 	
+	@Override
 	public synchronized void update(T id, V val) throws MyException
 	{
 		if(id instanceof Integer)
