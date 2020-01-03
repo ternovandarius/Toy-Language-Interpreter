@@ -36,4 +36,9 @@ public class MyStack<T> implements MyIStack<T> {
 		return stack.isEmpty();
 	}
 
+	@Override
+	public Stack<T> getContents() {
+		return this.stack;
+	}
+
 }

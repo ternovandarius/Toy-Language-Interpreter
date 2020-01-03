@@ -12,7 +12,6 @@ import javafx.stage.Stage;
 
 public class mainFX extends Application {
 
-	public static Stage classStage = new Stage();
 	private Map<String, Command> commands;
 	
 	public mainFX() {
@@ -29,7 +28,7 @@ public class mainFX extends Application {
 			Parent root = FXMLLoader.load(getClass().getResource("intro.fxml"));
 			primaryStage.setTitle("Main menu");
 			primaryStage.setScene(new Scene(root));
-			classStage=primaryStage;
+			primaryStage.show();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

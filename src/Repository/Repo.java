@@ -6,9 +6,14 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import Exceptions.MyException;
+import Model.ADTs.MyIHeap;
+import Model.ADTs.MyIList;
 import Model.ADTs.PrgState;
+import Model.Values.StringValue;
+import Model.Values.Value;
 
 public class Repo implements MyIRepo{
 
@@ -52,5 +57,20 @@ public class Repo implements MyIRepo{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	public MyIList<Value> getOutFromPrgState()
+	{
+		return this.list.get(0).getOut();
+	}
+
+	@Override
+	public Set<StringValue> getFileTableKeys() {
+		return this.list.get(0).getFileTableKeys();
+	}
+	
+	@Override
+	public MyIHeap<Integer, Value> getHeap(){
+		return this.list.get(0).getHeap();
 	}
 }

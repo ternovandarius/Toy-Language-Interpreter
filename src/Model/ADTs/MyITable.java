@@ -1,5 +1,7 @@
 package Model.ADTs;
 
+import java.util.Set;
+
 public interface MyITable<T, V> {
 
 	void clear();
@@ -12,5 +14,5 @@ public interface MyITable<T, V> {
 	int size();
 	V lookup(T id);
 	void update(T id, V val);
-	
+	Set<T> getKeys();
 }

@@ -1,6 +1,8 @@
 package Model.ADTs;
 
 import java.util.HashMap;
+import java.util.List;
+import java.util.Set;
 
 public class FileTable<T, V> implements MyITable<T, V>{
 
@@ -69,6 +71,11 @@ HashMap<T, V> dict = new HashMap<T, V>();
 	public synchronized void update(T id, V val)
 	{
 		this.dict.replace(id, val);
+	}
+
+	@Override
+	public Set<T> getKeys() {
+		return this.dict.keySet();
 	}
 
 }

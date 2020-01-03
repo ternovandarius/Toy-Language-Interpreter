@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="832.0" prefWidth="1066.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UI.secondController">
+   <children>
+      <TextField fx:id="prgStateCount" editable="false" layoutX="420.0" layoutY="787.0" text="PrgState count: 0" />
+      <TableView fx:id="heapTable" layoutX="51.0" layoutY="24.0" prefHeight="335.0" prefWidth="288.0">
+        <columns>
+          <TableColumn fx:id="addressCol" prefWidth="75.0" text="address" />
+          <TableColumn fx:id="valueCol" prefWidth="75.0" text="Value" />
+        </columns>
+      </TableView>
+      <ListView fx:id="outputTable" layoutX="398.0" layoutY="24.0" prefHeight="335.0" prefWidth="281.0" />
+      <ListView fx:id="fileTable" layoutX="727.0" layoutY="24.0" prefHeight="335.0" prefWidth="281.0" />
+      <ListView fx:id="prgStateTable" layoutX="51.0" layoutY="416.0" prefHeight="335.0" prefWidth="281.0" />
+      <ListView fx:id="exeStackList" layoutX="727.0" layoutY="416.0" prefHeight="335.0" prefWidth="281.0" />
+      <TableView fx:id="symTable" layoutX="398.0" layoutY="416.0" prefHeight="335.0" prefWidth="281.0">
+        <columns>
+          <TableColumn fx:id="varName" prefWidth="75.0" text="C1" />
+          <TableColumn fx:id="value" prefWidth="75.0" text="C2" />
+        </columns>
+      </TableView>
+      <Button layoutX="14.0" layoutY="787.0" mnemonicParsing="false" onAction="#stepButtonClicked" text="Run one step" />
+      <Button layoutX="1008.0" layoutY="787.0" mnemonicParsing="false" onAction="#exitButtonClicked" text="Exit" />
+      <Label layoutX="174.0" layoutY="359.0" text="Heap" />
+      <Label layoutX="515.0" layoutY="359.0" text="Output" />
+      <Label layoutX="836.0" layoutY="359.0" text="File Table" />
+      <Label layoutX="141.0" layoutY="751.0" text="Program States" />
+      <Label layoutX="494.0" layoutY="751.0" text="Symbol Table" />
+      <Label layoutX="816.0" layoutY="751.0" text="Execution Stack" />
+   </children>
+</AnchorPane>

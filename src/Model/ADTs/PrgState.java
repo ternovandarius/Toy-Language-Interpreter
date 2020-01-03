@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import Exceptions.MyException;
@@ -35,6 +36,21 @@ public class PrgState {
 	{
 		sharedId+=1;
 		return sharedId;
+	}
+	
+	public MyIList<Value> getOut()
+	{
+		return this.out;
+	}
+	
+	public Set<StringValue> getFileTableKeys()
+	{
+		return this.FileTable.getKeys();
+	}
+	
+	public int getId()
+	{
+		return this.id;
 	}
 	
 	public void setStack(MyIStack<IStmt> newStack)

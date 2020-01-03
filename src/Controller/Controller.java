@@ -3,6 +3,7 @@ package Controller;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
@@ -10,7 +11,10 @@ import java.util.concurrent.Executors;
 import java.util.stream.Collectors;
 
 import Exceptions.MyException;
+import Model.ADTs.MyIHeap;
+import Model.ADTs.MyIList;
 import Model.ADTs.PrgState;
+import Model.Values.StringValue;
 import Model.Values.Value;
 import Repository.MyIRepo;
 
@@ -22,6 +26,11 @@ public class Controller implements MyIController{
 	public Controller(MyIRepo r)
 	{
 		repo=r;
+	}
+	
+	public MyIRepo getRepo()
+	{
+		return this.repo;
 	}
 
 	public void oneStepForAllPrg(List<PrgState> prgList) throws InterruptedException
@@ -74,7 +83,7 @@ public class Controller implements MyIController{
 	@Override
 	public void allStep()
 	{
-		executor = Executors.newFixedThreadPool(2);
+		executor = Executors.newFixedThreadPool(8);
 		
 		List<PrgState> prgList=removeCompletedPrg(repo.getPrgList());
 		 while(prgList.size() > 0){
@@ -152,6 +161,39 @@ public class Controller implements MyIController{
 	public boolean getFlagState() {
 		return step;
 	}
+
+	public int getRepoCount() {
+		return this.repo.getPrgList().size();
+	}
 	
+	public MyIList<Value> getOutput(){
+		return this.repo.getOutFromPrgState();
+	}
+	
+	public Set<StringValue> getFileTableKeys()
+	{
+		return this.repo.getFileTableKeys();
+	}
+	
+	public MyIHeap<Integer, Value> getHeap()
+	{
+		return this.repo.getHeap();
+	}
+	
+	public List<String> getPrgStateIDs()
+	{
+		List<String> aux = new ArrayList<String>();
+		List<PrgState> aux2 = this.repo.getPrgList();
+		for (PrgState i : aux2)
+		{
+			aux.add(Integer.toString(i.getId()));
+		}
+		return aux;
+	}
+	
+	public List<PrgState> getPrgStateList()
+	{
+		return this.repo.getPrgList();
+	}
 	
 }

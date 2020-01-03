@@ -6,11 +6,11 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.paint.*?>
 
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2">
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UI.mainFXController">
   <children>
-    <Button layoutX="166.0" layoutY="352.0" mnemonicParsing="false" text="Execute" />
-    <ListView layoutX="68.0" layoutY="45.0" prefHeight="288.0" prefWidth="466.0" />
+    <Button layoutX="166.0" layoutY="352.0" mnemonicParsing="false" text="Execute" onAction="#executeButtonClicked"/>
+    <ListView fx:id="table" editable="true" layoutX="68.0" layoutY="45.0" prefHeight="288.0" prefWidth="466.0" />
     <Label layoutX="204.0" layoutY="14.0" text="Select a program from below" />
-    <Button layoutX="362.0" layoutY="353.0" mnemonicParsing="false" text="Exit" />
+    <Button layoutX="362.0" layoutY="353.0" mnemonicParsing="false" onAction="#exitButtonClicked" text="Exit" />
   </children>
 </AnchorPane>
