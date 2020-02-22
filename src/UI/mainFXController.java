@@ -14,9 +14,11 @@ import Model.ADTs.MyDictionary;
 import Model.ADTs.MyHeap;
 import Model.ADTs.MyIDictionary;
 import Model.ADTs.MyIHeap;
+import Model.ADTs.MyILatchTable;
 import Model.ADTs.MyIList;
 import Model.ADTs.MyIStack;
 import Model.ADTs.MyITable;
+import Model.ADTs.MyLatchTable;
 import Model.ADTs.MyList;
 import Model.ADTs.MyStack;
 import Model.ADTs.PrgState;
@@ -31,8 +33,11 @@ import Model.Statements.IStmt;
 import Model.Statements.IfStmt;
 import Model.Statements.PrintStmt;
 import Model.Statements.VarDeclStmt;
+import Model.Statements.await;
 import Model.Statements.closeRFile;
+import Model.Statements.countDown;
 import Model.Statements.forkStmt;
+import Model.Statements.newLatch;
 import Model.Statements.newStmt;
 import Model.Statements.openRFile;
 import Model.Statements.readFile;
@@ -88,6 +93,7 @@ public class mainFXController implements Initializable{
 	IStmt compHst;
 	IStmt compIst;
 	IStmt compJst;
+	IStmt compKst;
 	
 	Controller ctr1;
 	Controller ctr2;
@@ -98,6 +104,7 @@ public class mainFXController implements Initializable{
 	Controller ctr7;
 	Controller ctr8;
 	Controller ctr9;
+	Controller ctr10;
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -116,7 +123,8 @@ public class mainFXController implements Initializable{
 		}
 		stk1.push(ex1);
 		MyIHeap<Integer, Value> heap1 = new MyHeap<Integer, Value>();
-		PrgState prg1 = new PrgState(stk1, symTbl1, out1, FilTbl1, heap1);
+		MyILatchTable<Integer, Integer> latch1 = new MyLatchTable<Integer, Integer>();
+		PrgState prg1 = new PrgState(stk1, symTbl1, out1, FilTbl1, heap1, latch1);
 		MyIRepo repo1 = new Repo(prg1,"log1.txt");
 		ctr1 = new Controller(repo1);
 		
@@ -139,7 +147,8 @@ public class mainFXController implements Initializable{
 		}
 		stk2.push(ex2);
 		MyIHeap<Integer, Value> heap2 = new MyHeap<Integer, Value>();
-		PrgState prg2 = new PrgState(stk2, symTbl2, out2, FilTbl2, heap2);
+		MyILatchTable<Integer, Integer> latch2 = new MyLatchTable<Integer, Integer>();
+		PrgState prg2 = new PrgState(stk2, symTbl2, out2, FilTbl2, heap2, latch2);
 		MyIRepo repo2 = new Repo(prg2,"log2.txt");
 		ctr2 = new Controller(repo2);
 		
@@ -162,7 +171,8 @@ public class mainFXController implements Initializable{
 		}
 		stk3.push(ex3);
 		MyIHeap<Integer, Value> heap3 = new MyHeap<Integer, Value>();
-		PrgState prg3 = new PrgState(stk3, symTbl3, out3, FilTbl3, heap3);
+		MyILatchTable<Integer, Integer> latch3 = new MyLatchTable<Integer, Integer>();
+		PrgState prg3 = new PrgState(stk3, symTbl3, out3, FilTbl3, heap3, latch3);
 		MyIRepo repo3 = new Repo(prg3,"log3.txt");
 		ctr3 = new Controller(repo3);
 		
@@ -185,7 +195,8 @@ public class mainFXController implements Initializable{
 		stk4.push(compStat);
 		MyITable<StringValue, BufferedReader> FilTbl4 = new FileTable<StringValue, BufferedReader>();
 		MyIHeap<Integer, Value> heap4 = new MyHeap<Integer, Value>();
-		PrgState prg4 = new PrgState(stk4, symTbl4, out4, FilTbl4, heap4);
+		MyILatchTable<Integer, Integer> latch4 = new MyLatchTable<Integer, Integer>();
+		PrgState prg4 = new PrgState(stk4, symTbl4, out4, FilTbl4, heap4, latch4);
 		MyIRepo repo4 = new Repo(prg4,"log4.txt");
 		ctr4 = new Controller(repo4);
 		
@@ -211,7 +222,8 @@ public class mainFXController implements Initializable{
 		stk5.push(compSt);
 		MyITable<StringValue, BufferedReader> FilTbl5 = new FileTable<StringValue, BufferedReader>();
 		MyIHeap<Integer, Value> heap5 = new MyHeap<Integer, Value>();
-		PrgState prg5 = new PrgState(stk5, symTbl5, out5, FilTbl5, heap5);
+		MyILatchTable<Integer, Integer> latch5 = new MyLatchTable<Integer, Integer>();
+		PrgState prg5 = new PrgState(stk5, symTbl5, out5, FilTbl5, heap5, latch5);
 		MyIRepo repo5 = new Repo(prg5,"log5.txt");
 		ctr5 = new Controller(repo5);
 		
@@ -232,7 +244,8 @@ public class mainFXController implements Initializable{
 			e.printStackTrace();
 		}
 		stk6.push(compWst);
-		PrgState prg6 = new PrgState(stk6, symTbl6, out6, FilTbl6, heap6);
+		MyILatchTable<Integer, Integer> latch6 = new MyLatchTable<Integer, Integer>();
+		PrgState prg6 = new PrgState(stk6, symTbl6, out6, FilTbl6, heap6, latch6);
 		MyIRepo repo6 = new Repo(prg6,"log6.txt");
 		ctr6 = new Controller(repo6);
 		
@@ -259,7 +272,8 @@ public class mainFXController implements Initializable{
 			e.printStackTrace();
 		}
 		stk7.push(compHst);
-		PrgState prg7 = new PrgState(stk7, symTbl7, out7, FilTbl7, heap7);
+		MyILatchTable<Integer, Integer> latch7 = new MyLatchTable<Integer, Integer>();
+		PrgState prg7 = new PrgState(stk7, symTbl7, out7, FilTbl7, heap7, latch7);
 		MyIRepo repo7 = new Repo(prg7,"log7.txt");
 		ctr7 = new Controller(repo7);	
 		
@@ -287,7 +301,8 @@ public class mainFXController implements Initializable{
 			e.printStackTrace();
 		}
 		stk8.push(compIst);
-		PrgState prg8 = new PrgState(stk8, symTbl8, out8, FilTbl8, heap8);
+		MyILatchTable<Integer, Integer> latch8 = new MyLatchTable<Integer, Integer>();
+		PrgState prg8 = new PrgState(stk8, symTbl8, out8, FilTbl8, heap8, latch8);
 		MyIRepo repo8 = new Repo(prg8, "log8.txt");
 		ctr8 = new Controller(repo8);
 		
@@ -317,9 +332,48 @@ public class mainFXController implements Initializable{
 			e.printStackTrace();
 		}
 		stk9.push(compJst);
-		PrgState prg9 = new PrgState(stk9, symTbl9, out9, FilTbl9, heap9);
+		MyILatchTable<Integer, Integer> latch9 = new MyLatchTable<Integer, Integer>();
+		PrgState prg9 = new PrgState(stk9, symTbl9, out9, FilTbl9, heap9, latch9);
 		MyIRepo repo9 = new Repo(prg9, "log9.txt");
 		ctr9 = new Controller(repo9);
+		
+		MyIDictionary<String, Value> symTbl10 = new MyDictionary<String, Value>();
+		MyIList<Value> out10 = new MyList<Value>();
+		MyIStack<IStmt> stk10 = new MyStack<IStmt>();
+		MyITable<StringValue, BufferedReader> FilTbl10 = new FileTable<StringValue, BufferedReader>();
+		MyIHeap<Integer, Value> heap10 = new MyHeap<Integer, Value>();
+		
+		IStmt kst1= new VarDeclStmt("v1", new RefType(new IntType()));
+		IStmt kst2= new VarDeclStmt("v2", new RefType(new IntType()));
+		IStmt kst3= new VarDeclStmt("v3", new RefType(new IntType()));
+		IStmt kst4= new VarDeclStmt("cnt", new IntType());
+		IStmt kst5= new newStmt(new StringValue("v1"), new ValueExp(new IntValue(2)));
+		IStmt kst6= new newStmt(new StringValue("v2"), new ValueExp(new IntValue(3)));
+		IStmt kst7= new newStmt(new StringValue("v3"), new ValueExp(new IntValue(4)));
+		IStmt kst8= new newLatch("cnt", new readHeap(new VarExp("v2")));
+		IStmt kst9= new forkStmt(new CompStmt(new writeHeap("v1", new ArithExp('*', new readHeap(new VarExp("v1")), new ValueExp(new IntValue(10)))),
+				new CompStmt(new PrintStmt(new readHeap(new VarExp("v1"))),
+						new CompStmt(new countDown("cnt"), 
+				new forkStmt(new CompStmt(new writeHeap("v2", new ArithExp('*', new readHeap(new VarExp("v2")), new ValueExp(new IntValue(10)))),
+						new CompStmt(new PrintStmt(new readHeap(new VarExp("v2"))),
+								new CompStmt(new countDown("cnt"),
+				new forkStmt(new CompStmt(new writeHeap("v3", new ArithExp('*', new readHeap(new VarExp("v3")), new ValueExp(new IntValue(10)))),
+						new CompStmt(new PrintStmt(new readHeap(new VarExp("v3"))),
+								new countDown("cnt"))))))))))));
+		IStmt kst10= new await("cnt");
+		IStmt kst11= new PrintStmt(new ValueExp(new IntValue(100)));
+		IStmt kst12= new countDown("cnt");
+		compKst=new CompStmt(kst1, new CompStmt(kst2, new CompStmt(kst3, new CompStmt(kst4,
+				new CompStmt(kst5, new CompStmt(kst6, new CompStmt(kst7, new CompStmt(kst8,
+						new CompStmt(kst9, new CompStmt(kst10, new CompStmt(kst11, 
+								new CompStmt(kst12, kst11))))))))))));
+		MyIDictionary<String, Type> typeEnv10 = new MyDictionary<String, Type>();
+		//compKst.typecheck(typeEnv10);
+		stk10.push(compKst);
+		MyILatchTable<Integer, Integer> latch10 = new MyLatchTable<Integer, Integer>();
+		PrgState prg10 = new PrgState(stk10, symTbl10, out10, FilTbl10, heap10, latch10);
+		MyIRepo repo10 = new Repo(prg10, "log10.txt");
+		ctr10 = new Controller(repo10);
 		
 		ObservableList<String> str_list = FXCollections.observableArrayList();
 		StringProperty sp_ex1=new SimpleStringProperty(ex1.toString());
@@ -331,6 +385,7 @@ public class mainFXController implements Initializable{
 		StringProperty sp_compHst=new SimpleStringProperty(compHst.toString());
 		StringProperty sp_compIst=new SimpleStringProperty(compIst.toString());
 		StringProperty sp_compJst=new SimpleStringProperty(compJst.toString());
+		StringProperty sp_compKst=new SimpleStringProperty(compKst.toString());
 		str_list.add(ex1.toString());
 		str_list.add(ex2.toString());
 		str_list.add(ex3.toString());
@@ -340,6 +395,7 @@ public class mainFXController implements Initializable{
 		str_list.add(compHst.toString());
 		str_list.add(compIst.toString());
 		str_list.add(compJst.toString());
+		str_list.add(compKst.toString());
 		
 		table.setItems(str_list);
 		table.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
@@ -384,6 +440,10 @@ public class mainFXController implements Initializable{
 						cont=ctr8;
 					else if (selection.equals(compJst.toString()))
 						cont=ctr9;
+					else if (selection.equals(compKst.toString()))
+					{
+						cont=ctr10;
+					}
 					else
 					{
 						cont=null;

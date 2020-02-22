@@ -1,7 +1,5 @@
 package View;
 
-import Model.Statements.CompStmt;
-import Model.Statements.IStmt;
 import Model.Statements.*;
 import Model.Types.*;
 import Model.Expressions.*;
@@ -31,7 +29,8 @@ class Interpreter {
 		ex1.typecheck(typeEnv1);
 		stk1.push(ex1);
 		MyIHeap<Integer, Value> heap1 = new MyHeap<Integer, Value>();
-		PrgState prg1 = new PrgState(stk1, symTbl1, out1, FilTbl1, heap1);
+		MyILatchTable<Integer, Integer> latch1 = new MyLatchTable<Integer, Integer>();
+		PrgState prg1 = new PrgState(stk1, symTbl1, out1, FilTbl1, heap1, latch1);
 		MyIRepo repo1 = new Repo(prg1,"log1.txt");
 		Controller ctr1 = new Controller(repo1);
 		
@@ -49,7 +48,8 @@ class Interpreter {
 		ex2.typecheck(typeEnv2);
 		stk2.push(ex2);
 		MyIHeap<Integer, Value> heap2 = new MyHeap<Integer, Value>();
-		PrgState prg2 = new PrgState(stk2, symTbl2, out2, FilTbl2, heap2);
+		MyILatchTable<Integer, Integer> latch2 = new MyLatchTable<Integer, Integer>();
+		PrgState prg2 = new PrgState(stk2, symTbl2, out2, FilTbl2, heap2, latch2);
 		MyIRepo repo2 = new Repo(prg2,"log2.txt");
 		Controller ctr2 = new Controller(repo2);
 		
@@ -67,7 +67,8 @@ class Interpreter {
 		ex3.typecheck(typeEnv3);
 		stk3.push(ex3);
 		MyIHeap<Integer, Value> heap3 = new MyHeap<Integer, Value>();
-		PrgState prg3 = new PrgState(stk3, symTbl3, out3, FilTbl3, heap3);
+		MyILatchTable<Integer, Integer> latch3 = new MyLatchTable<Integer, Integer>();
+		PrgState prg3 = new PrgState(stk3, symTbl3, out3, FilTbl3, heap3, latch3);
 		MyIRepo repo3 = new Repo(prg3,"log3.txt");
 		Controller ctr3 = new Controller(repo3);
 		
@@ -85,7 +86,8 @@ class Interpreter {
 		stk4.push(compStat);
 		MyITable<StringValue, BufferedReader> FilTbl4 = new FileTable<StringValue, BufferedReader>();
 		MyIHeap<Integer, Value> heap4 = new MyHeap<Integer, Value>();
-		PrgState prg4 = new PrgState(stk4, symTbl4, out4, FilTbl4, heap4);
+		MyILatchTable<Integer, Integer> latch4 = new MyLatchTable<Integer, Integer>();
+		PrgState prg4 = new PrgState(stk4, symTbl4, out4, FilTbl4, heap4, latch4);
 		MyIRepo repo4 = new Repo(prg4,"log4.txt");
 		Controller ctr4 = new Controller(repo4);
 		
@@ -106,7 +108,8 @@ class Interpreter {
 		stk5.push(compSt);
 		MyITable<StringValue, BufferedReader> FilTbl5 = new FileTable<StringValue, BufferedReader>();
 		MyIHeap<Integer, Value> heap5 = new MyHeap<Integer, Value>();
-		PrgState prg5 = new PrgState(stk5, symTbl5, out5, FilTbl5, heap5);
+		MyILatchTable<Integer, Integer> latch5 = new MyLatchTable<Integer, Integer>();
+		PrgState prg5 = new PrgState(stk5, symTbl5, out5, FilTbl5, heap5, latch5);
 		MyIRepo repo5 = new Repo(prg5,"log5.txt");
 		Controller ctr5 = new Controller(repo5);
 		
@@ -122,7 +125,8 @@ class Interpreter {
 		MyIDictionary<String, Type> typeEnv6 = new MyDictionary<String, Type>();
 		compWst.typecheck(typeEnv6);
 		stk6.push(compWst);
-		PrgState prg6 = new PrgState(stk6, symTbl6, out6, FilTbl6, heap6);
+		MyILatchTable<Integer, Integer> latch6 = new MyLatchTable<Integer, Integer>();
+		PrgState prg6 = new PrgState(stk6, symTbl6, out6, FilTbl6, heap6, latch6);
 		MyIRepo repo6 = new Repo(prg6,"log6.txt");
 		Controller ctr6 = new Controller(repo6);
 		
@@ -144,7 +148,8 @@ class Interpreter {
 		MyIDictionary<String, Type> typeEnv7 = new MyDictionary<String, Type>();
 		compHst.typecheck(typeEnv7);
 		stk7.push(compHst);
-		PrgState prg7 = new PrgState(stk7, symTbl7, out7, FilTbl7, heap7);
+		MyILatchTable<Integer, Integer> latch7 = new MyLatchTable<Integer, Integer>();
+		PrgState prg7 = new PrgState(stk7, symTbl7, out7, FilTbl7, heap7, latch7);
 		MyIRepo repo7 = new Repo(prg7,"log7.txt");
 		Controller ctr7 = new Controller(repo7);	
 		
@@ -167,7 +172,8 @@ class Interpreter {
 		MyIDictionary<String, Type> typeEnv8 = new MyDictionary<String, Type>();
 		compIst.typecheck(typeEnv8);
 		stk8.push(compIst);
-		PrgState prg8 = new PrgState(stk8, symTbl8, out8, FilTbl8, heap8);
+		MyILatchTable<Integer, Integer> latch8 = new MyLatchTable<Integer, Integer>();
+		PrgState prg8 = new PrgState(stk8, symTbl8, out8, FilTbl8, heap8, latch8);
 		MyIRepo repo8 = new Repo(prg8, "log8.txt");
 		Controller ctr8 = new Controller(repo8);
 		
@@ -192,9 +198,49 @@ class Interpreter {
 		MyIDictionary<String, Type> typeEnv9 = new MyDictionary<String, Type>();
 		compJst.typecheck(typeEnv9);
 		stk9.push(compJst);
-		PrgState prg9 = new PrgState(stk9, symTbl9, out9, FilTbl9, heap9);
+		MyILatchTable<Integer, Integer> latch9 = new MyLatchTable<Integer, Integer>();
+		PrgState prg9 = new PrgState(stk9, symTbl9, out9, FilTbl9, heap9, latch9);
 		MyIRepo repo9 = new Repo(prg9, "log9.txt");
 		Controller ctr9 = new Controller(repo9);
+		
+		MyIDictionary<String, Value> symTbl10 = new MyDictionary<String, Value>();
+		MyIList<Value> out10 = new MyList<Value>();
+		MyIStack<IStmt> stk10 = new MyStack<IStmt>();
+		MyITable<StringValue, BufferedReader> FilTbl10 = new FileTable<StringValue, BufferedReader>();
+		MyIHeap<Integer, Value> heap10 = new MyHeap<Integer, Value>();
+		
+		IStmt kst1= new VarDeclStmt("v1", new RefType(new IntType()));
+		IStmt kst2= new VarDeclStmt("v2", new RefType(new IntType()));
+		IStmt kst3= new VarDeclStmt("v3", new RefType(new IntType()));
+		IStmt kst4= new VarDeclStmt("cnt", new IntType());
+		IStmt kst5= new newStmt(new StringValue("v1"), new ValueExp(new IntValue(2)));
+		IStmt kst6= new newStmt(new StringValue("v2"), new ValueExp(new IntValue(3)));
+		IStmt kst7= new newStmt(new StringValue("v3"), new ValueExp(new IntValue(4)));
+		IStmt kst8= new newLatch("cnt", new readHeap(new VarExp("v2")));
+		IStmt kst9= new forkStmt(new CompStmt(new writeHeap("v1", new ArithExp('*', new readHeap(new VarExp("v1")), new ValueExp(new IntValue(10)))),
+				new CompStmt(new PrintStmt(new readHeap(new VarExp("v1"))),
+						new CompStmt(new countDown("cnt"), 
+				new forkStmt(new CompStmt(new writeHeap("v2", new ArithExp('*', new readHeap(new VarExp("v2")), new ValueExp(new IntValue(10)))),
+						new CompStmt(new PrintStmt(new readHeap(new VarExp("v2"))),
+								new CompStmt(new countDown("cnt"),
+				new forkStmt(new CompStmt(new writeHeap("v3", new ArithExp('*', new readHeap(new VarExp("v3")), new ValueExp(new IntValue(10)))),
+						new CompStmt(new PrintStmt(new readHeap(new VarExp("v3"))),
+								new countDown("cnt"))))))))))));
+		IStmt kst10= new await("cnt");
+		IStmt kst11= new PrintStmt(new ValueExp(new IntValue(100)));
+		IStmt kst12= new countDown("cnt");
+		IStmt compKst=new CompStmt(kst1, new CompStmt(kst2, new CompStmt(kst3, new CompStmt(kst4,
+				new CompStmt(kst5, new CompStmt(kst6, new CompStmt(kst7, new CompStmt(kst8,
+						new CompStmt(kst9, new CompStmt(kst10, new CompStmt(kst11, 
+								new CompStmt(kst12, kst11))))))))))));
+		MyIDictionary<String, Type> typeEnv10 = new MyDictionary<String, Type>();
+		//compKst.typecheck(typeEnv10);
+		stk10.push(compKst);
+		MyILatchTable<Integer, Integer> latch10 = new MyLatchTable<Integer, Integer>();
+		PrgState prg10 = new PrgState(stk10, symTbl10, out10, FilTbl10, heap10, latch10);
+		MyIRepo repo10 = new Repo(prg10, "log10.txt");
+		Controller ctr10 = new Controller(repo10);
+		
 		
 		
 		TextMenu menu = new TextMenu();
@@ -208,6 +254,7 @@ class Interpreter {
 		menu.addCommand(new RunExample("7",compHst.toString(), ctr7));
 		menu.addCommand(new RunExample("8",compIst.toString(), ctr8));
 		menu.addCommand(new RunExample("9",compJst.toString(), ctr9));
+		menu.addCommand(new RunExample("10", compKst.toString(), ctr10));
 		
 		Scanner scanner=new Scanner(System.in);
 		while(true){

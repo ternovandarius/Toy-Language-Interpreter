@@ -1,6 +1,7 @@
 package Repository;
 
 import Model.ADTs.MyIHeap;
+import Model.ADTs.MyILatchTable;
 import Model.ADTs.MyIList;
 import Model.ADTs.PrgState;
 import Model.Values.StringValue;
@@ -18,4 +19,5 @@ public interface MyIRepo {
 	public MyIList<Value> getOutFromPrgState();
 	public Set<StringValue> getFileTableKeys();
 	public MyIHeap<Integer, Value> getHeap();
+	public MyILatchTable<Integer, Integer> getLatchTable();
 }
