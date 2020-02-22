@@ -1,171 +1,4 @@
-ExeStack:
-int a
-a=3
-int b
-b=10
-(IF(a<b)THEN(print(b))ELSE(print(a)))
-SymTable:
-
-Out:
-
-FileTable:
-{}
-ExeStack:
-a=3
-int b
-b=10
-(IF(a<b)THEN(print(b))ELSE(print(a)))
-SymTable:
-a-->0
-
-Out:
-
-FileTable:
-{}
-ExeStack:
-int b
-b=10
-(IF(a<b)THEN(print(b))ELSE(print(a)))
-SymTable:
-a-->3
-
-Out:
-
-FileTable:
-{}
-ExeStack:
-b=10
-(IF(a<b)THEN(print(b))ELSE(print(a)))
-SymTable:
-a-->3
-b-->0
-
-Out:
-
-FileTable:
-{}
-ExeStack:
-(IF(a<b)THEN(print(b))ELSE(print(a)))
-SymTable:
-a-->3
-b-->10
-
-Out:
-
-FileTable:
-{}
-ExeStack:
-print(b)
-SymTable:
-a-->3
-b-->10
-
-Out:
-
-FileTable:
-{}
-ExeStack:
-
-SymTable:
-a-->3
-b-->10
-
-Out:
-10
-
-FileTable:
-{}
-ExeStack:
-int a
-a=3
-int b
-b=10
-(IF(a<b)THEN(print(b))ELSE(print(a)))
-SymTable:
-
-Out:
-
-FileTable:
-{}
-ExeStack:
-a=3
-int b
-b=10
-(IF(a<b)THEN(print(b))ELSE(print(a)))
-SymTable:
-a-->0
-
-Out:
-
-FileTable:
-{}
-ExeStack:
-int b
-b=10
-(IF(a<b)THEN(print(b))ELSE(print(a)))
-SymTable:
-a-->3
-
-Out:
-
-FileTable:
-{}
-ExeStack:
-b=10
-(IF(a<b)THEN(print(b))ELSE(print(a)))
-SymTable:
-a-->3
-b-->0
-
-Out:
-
-FileTable:
-{}
-ExeStack:
-(IF(a<b)THEN(print(b))ELSE(print(a)))
-SymTable:
-a-->3
-b-->10
-
-Out:
-
-FileTable:
-{}
-ExeStack:
-print(b)
-SymTable:
-a-->3
-b-->10
-
-Out:
-
-FileTable:
-{}
-ExeStack:
-
-SymTable:
-a-->3
-b-->10
-
-Out:
-10
-
-FileTable:
-{}
-ID: 3
-
-ExeStack:
-(int a;(a=3;(int b;(b=10;(IF(a<b)THEN(print(b))ELSE(print(a)))))))
-SymTable:
-
-Out:
-
-FileTable:
-{}
-Heap:
-{}
-
-ID: 3
+ID: 12
 
 ExeStack:
 int a
@@ -179,7 +12,7 @@ FileTable:
 Heap:
 {}
 
-ID: 3
+ID: 12
 
 ExeStack:
 (a=3;(int b;(b=10;(IF(a<b)THEN(print(b))ELSE(print(a))))))
@@ -193,7 +26,7 @@ FileTable:
 Heap:
 {}
 
-ID: 3
+ID: 12
 
 ExeStack:
 a=3
@@ -208,7 +41,7 @@ FileTable:
 Heap:
 {}
 
-ID: 3
+ID: 12
 
 ExeStack:
 (int b;(b=10;(IF(a<b)THEN(print(b))ELSE(print(a)))))
@@ -222,7 +55,7 @@ FileTable:
 Heap:
 {}
 
-ID: 3
+ID: 12
 
 ExeStack:
 int b
@@ -237,7 +70,7 @@ FileTable:
 Heap:
 {}
 
-ID: 3
+ID: 12
 
 ExeStack:
 (b=10;(IF(a<b)THEN(print(b))ELSE(print(a))))
@@ -252,7 +85,7 @@ FileTable:
 Heap:
 {}
 
-ID: 3
+ID: 12
 
 ExeStack:
 b=10
@@ -268,7 +101,7 @@ FileTable:
 Heap:
 {}
 
-ID: 3
+ID: 12
 
 ExeStack:
 (IF(a<b)THEN(print(b))ELSE(print(a)))
@@ -283,7 +116,7 @@ FileTable:
 Heap:
 {}
 
-ID: 3
+ID: 12
 
 ExeStack:
 print(b)
@@ -298,7 +131,7 @@ FileTable:
 Heap:
 {}
 
-ID: 3
+ID: 12
 
 ExeStack:
 

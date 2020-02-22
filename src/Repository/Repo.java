@@ -10,7 +10,6 @@ import java.util.Set;
 
 import Exceptions.MyException;
 import Model.ADTs.MyIHeap;
-import Model.ADTs.MyILatchTable;
 import Model.ADTs.MyIList;
 import Model.ADTs.PrgState;
 import Model.Values.StringValue;
@@ -74,11 +73,4 @@ public class Repo implements MyIRepo{
 	public MyIHeap<Integer, Value> getHeap(){
 		return this.list.get(0).getHeap();
 	}
-
-	@Override
-	public MyILatchTable<Integer, Integer> getLatchTable() {
-		return this.list.get(0).getLatchTable();
-	}
-	
-	
 }

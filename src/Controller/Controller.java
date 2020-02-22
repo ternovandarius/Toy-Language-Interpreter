@@ -12,7 +12,6 @@ import java.util.stream.Collectors;
 
 import Exceptions.MyException;
 import Model.ADTs.MyIHeap;
-import Model.ADTs.MyILatchTable;
 import Model.ADTs.MyIList;
 import Model.ADTs.PrgState;
 import Model.Values.StringValue;
@@ -195,11 +194,6 @@ public class Controller implements MyIController{
 	public List<PrgState> getPrgStateList()
 	{
 		return this.repo.getPrgList();
-	}
-	
-	public MyILatchTable<Integer, Integer> getLatchTable()
-	{
-		return this.repo.getLatchTable();
 	}
 	
 }

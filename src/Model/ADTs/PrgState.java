@@ -20,28 +20,16 @@ public class PrgState {
 	MyIList<Value> out;
 	MyITable<StringValue, BufferedReader> FileTable;
 	MyIHeap<Integer, Value> heap;
-	MyILatchTable<Integer, Integer> latchTable;
 	int id=-1;
 	static int sharedId=-1;
 	
-	public PrgState(MyIStack<IStmt> stk, MyIDictionary<String, Value> symtbl, MyIList<Value> ot, MyITable<StringValue, BufferedReader> FilTbl, MyIHeap<Integer, Value> heap, MyILatchTable<Integer, Integer> latch){
+	public PrgState(MyIStack<IStmt> stk, MyIDictionary<String, Value> symtbl, MyIList<Value> ot, MyITable<StringValue, BufferedReader> FilTbl, MyIHeap<Integer, Value> heap){
 		exeStack = stk;
 		symTable = symtbl;
 		out = ot;
 		FileTable=FilTbl;
 		this.heap=heap;
 		id=PrgState.increaseId();
-		latchTable=latch;
-	}
-	
-	public MyILatchTable<Integer, Integer> getLatchTable()
-	{
-		return this.latchTable;
-	}
-	
-	public void setLatchTable(MyILatchTable<Integer, Integer> newLatchTable)
-	{
-		this.latchTable=newLatchTable;
 	}
 	
 	public static synchronized int increaseId()
@@ -139,9 +127,7 @@ public class PrgState {
 		fileTableMsg+=FileTable.toString();
 		String heapMsg ="Heap:\n";
 		heapMsg+=heap.toString();
-		String latchMsg ="Latch: \n";
-		latchMsg+=latchTable.toString();
-		String finalMsg=idMsg+"\n"+exeStackMsg+"\n"+symTableMsg+"\n"+outMsg+"\n"+fileTableMsg+"\n"+heapMsg+"\n"+latchMsg+"\n\n";
+		String finalMsg=idMsg+"\n"+exeStackMsg+"\n"+symTableMsg+"\n"+outMsg+"\n"+fileTableMsg+"\n"+heapMsg+"\n"+"\n";
 		return finalMsg;
 	}
 	

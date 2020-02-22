@@ -4,7 +4,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="892.0" prefWidth="1330.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UI.secondController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="832.0" prefWidth="1066.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UI.secondController">
    <children>
       <TextField fx:id="prgStateCount" editable="false" layoutX="420.0" layoutY="787.0" text="PrgState count: 0" />
       <TableView fx:id="heapTable" layoutX="51.0" layoutY="24.0" prefHeight="335.0" prefWidth="288.0">
@@ -31,11 +31,5 @@
       <Label layoutX="141.0" layoutY="751.0" text="Program States" />
       <Label layoutX="494.0" layoutY="751.0" text="Symbol Table" />
       <Label layoutX="816.0" layoutY="751.0" text="Execution Stack" />
-      <TableView fx:id="latchTable" layoutX="1059.0" layoutY="24.0" prefHeight="335.0" prefWidth="244.0">
-        <columns>
-          <TableColumn fx:id="locationCol" prefWidth="75.0" text="location" />
-          <TableColumn fx:id="valueCol2" prefWidth="75.0" text="value" />
-        </columns>
-      </TableView>
    </children>
 </AnchorPane>

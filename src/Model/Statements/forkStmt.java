@@ -41,7 +41,7 @@ public class forkStmt implements IStmt{
 		}
 		
 		
-		PrgState forked = new PrgState(forkedStack, symTableCopy, state.getList(), state.getFileTable(), state.getHeap(), state.getLatchTable());
+		PrgState forked = new PrgState(forkedStack, symTableCopy, state.getList(), state.getFileTable(), state.getHeap());
 		return forked;
 	}
 	

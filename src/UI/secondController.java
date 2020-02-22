@@ -83,15 +83,6 @@ public class secondController implements Initializable{
 	@FXML
 	private TableColumn<TableEntry, String> value;
 	
-	@FXML
-	private TableView<TableEntry> latchTable;
-	
-	@FXML
-	private TableColumn<TableEntry, String> locationCol;
-	
-	@FXML
-	private TableColumn<TableEntry, String> valueCol2;
-	
 	private int selectedID=-1;
 	
 	private MyIRepo repo;
@@ -120,9 +111,6 @@ public class secondController implements Initializable{
 			
 			varName.setCellValueFactory(new PropertyValueFactory<TableEntry,String>("firstCol")); 
 			value.setCellValueFactory(new PropertyValueFactory<TableEntry,String>("secondCol"));
-			
-			locationCol.setCellValueFactory(new PropertyValueFactory<TableEntry, String>("firstCol"));
-			valueCol2.setCellValueFactory(new PropertyValueFactory<TableEntry, String>("secondCol"));
 			
 			this.repo=this.controller.getRepo();
 			
@@ -183,19 +171,6 @@ public class secondController implements Initializable{
 		heapTable.setItems(tbl);
 	}
 	
-	private void setLatchTable()
-	{
-		HashMap<Integer, Integer> aux = this.controller.getLatchTable().getContent();
-		ObservableList<TableEntry> tbl = FXCollections.observableArrayList();
-		for (Map.Entry<Integer, Integer> cursor: aux.entrySet())
-		{
-			String first = cursor.getKey().toString();
-			String second=cursor.getValue().toString();
-			tbl.add(new TableEntry(first, second));
-		}
-		latchTable.setItems(tbl);
-	}
-	
 	private void setPrgStateIDList()
 	{
 		ObservableList<String> prgStateList = FXCollections.observableArrayList();
@@ -251,7 +226,6 @@ public class secondController implements Initializable{
 		this.setFileTableList();
 		this.setHeapTable();
 		this.setPrgStateIDList();
-		this.setLatchTable();
 		this.setDependencies();
 	}
 	
